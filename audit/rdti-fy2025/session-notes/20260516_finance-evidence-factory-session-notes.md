@@ -30,6 +30,40 @@ Documents are outputs. Evidence objects are the asset.
 10. No AI invention, no silent bridging, no pretending incomplete evidence is REAL.
 11. Notes and session state must be committed to GitHub before close where possible.
 12. Future sweeper/notes systems should capture full session state and use this note as anchor if available.
+13. Sweeping must capture every relevant lens, not only the finance view and not only verbatim statements in chat.
+
+## Multi-role sweep doctrine
+The financial controller view remains mandatory, but it is not sufficient.
+
+Every session sweep should capture what each relevant role would have noticed, even if that role did not speak explicitly in the chat.
+
+| Lens | What to capture |
+|---|---|
+| Finance / Controller | dollars, ledgers, category totals, variances, paid/unpaid status, apportionment, source-of-truth conflicts |
+| Tax / RDTI Adviser | eligibility boundaries, Division 355/RDTI risk, associate/payment timing, core/supporting activity fit, review posture |
+| Accountant | Xero/GL treatment, payroll, journals, GST/BAS, depreciation, contractor classification, reconciliation gaps |
+| Legal / Compliance | related-party risk, entity boundaries, evidence retention, privilege/escalation needs, misleading-claim risk |
+| Research Lead | hypotheses, uncertainty, experiments, observation/evaluation, knowledge generated, failed paths, methodology |
+| Product / Venture Studio | commercialisation boundary, product drift, reusable IP, what is context vs claimable activity |
+| Architecture / Systems | event-driven queues, MAAT/factors, Bridge, Supabase, GitHub, Drive, Apps Script, evidence object model |
+| Operations / Command | blockers, owners, meeting cadence, next-cycle actions, queue health, no-silent-waiting triggers |
+| Destroyer / Examiner | what would be attacked first, weak evidence, inflated claims, unclear labour, mixed spend, ordinary build risk |
+| Archivist / Evidence Custodian | canonical repo, file paths, hashes, versions, source links, naming, duplicate-truth risk |
+| Human Translation / Context | how old-world institutions interpret new-world operating models; vignettes/context only, not substitute proof |
+
+Sweeper outputs should therefore include:
+
+- explicit statements made in chat
+- implied risks
+- role-specific interpretations
+- missing-source requests
+- decision consequences
+- next-cycle triggers
+- issue/register updates
+- evidence references
+- contradictions and uncertainties
+
+Do not let the finance lens crowd out research, compliance, architecture, product, or destroyer perspectives.
 
 ## Canonical audit-facing spine
 Use the official lodged structure as the audit-facing spine unless source documents prove otherwise:
@@ -187,6 +221,7 @@ Preferred sweeper output:
 - extracted claims/figures
 - extracted source requests
 - extracted evidence references
+- role-lens interpretations from finance, tax, accounting, legal, research, product, architecture, operations, destroyer, archivist, and human-context perspectives
 - updated murder board
 - updated queue issue comment
 
@@ -195,7 +230,7 @@ Preferred sweeper output:
 ```yaml
 status: PARTIAL
 cycle_id: SESSION-NOTES-20260516
-result: session notes committed to canonical research hub
+result: session notes committed to canonical research hub and updated with multi-role sweep doctrine
 evidence:
   - repo: TML-4PM/t4h-research-hub
   - path: audit/rdti-fy2025/session-notes/20260516_finance-evidence-factory-session-notes.md
@@ -214,5 +249,5 @@ pressure_flags:
   - mixed spend
   - claim drift
   - research/build boundary
-score: 0.89
+score: 0.91
 ```
