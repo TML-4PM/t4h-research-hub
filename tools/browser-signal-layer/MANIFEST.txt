@@ -1,0 +1,7 @@
+Browser Signal Layer MVP — seed commit.
+Full source set delivered via Claude artifact bundle:
+  extension/{manifest.json,redact.js,content.js,envelope.js,background.js,popup.html,popup.js}
+  runner/runner.js
+This seed lands README + manifest as the spine anchor. Remaining files
+follow as separate dispatches to keep each payload reviewable and small.
+State: PARTIAL until full set verified in-repo + runner receipt returned.
