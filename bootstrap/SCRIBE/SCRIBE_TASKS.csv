@@ -1,0 +1,6 @@
+task_id,title,status,owner,next_action,evidence,receipt
+SCR-001,Create runtime worker,PARTIAL,Scribe,Bridge deploy worker,missing runtime,
+SCR-002,Create receipt ingestion,PARTIAL,Scribe,Create receipt listener,missing telemetry,
+SCR-003,Create sweeper loop,PARTIAL,Scribe,Enable retry sweep,missing retry runtime,
+SCR-004,Create command centre widget,PARTIAL,Scribe,Create widget,missing dashboard,
+SCR-005,Create Supabase tables,PARTIAL,Scribe,Deploy schema,missing runtime state,
