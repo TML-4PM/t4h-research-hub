@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  :root{ --bg:#0d0f12; --pnl:#15181d; --ln:#262b33; --fg:#e6e9ef; --dim:#7d8694; --ok:#5ec27a; --warn:#e0a23c; --bad:#e0604c; --acc:#4c8fe0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:360px;background:var(--bg);color:var(--fg);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:14px}
+  h1{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+  .sub{color:var(--dim);font-size:10.5px;margin-bottom:12px;line-height:1.5}
+  .modes{display:flex;gap:6px;margin-bottom:12px}
+  .modes button{flex:1;background:var(--pnl);border:1px solid var(--ln);color:var(--dim);padding:7px 0;border-radius:4px;font-family:inherit;font-size:10.5px;cursor:pointer}
+  .modes button.on{border-color:var(--acc);color:var(--fg)}
+  .cap{width:100%;background:var(--acc);border:none;color:#06121f;font-family:inherit;font-weight:600;font-size:13px;padding:11px;border-radius:5px;cursor:pointer;letter-spacing:.04em}
+  .cap:active{transform:translateY(1px)}
+  .row{display:flex;gap:6px;margin-top:10px}
+  .row button{flex:1;background:var(--pnl);border:1px solid var(--ln);color:var(--dim);padding:7px 0;border-radius:4px;font-family:inherit;font-size:10.5px;cursor:pointer}
+  #status{margin-top:11px;padding:9px;background:var(--pnl);border:1px solid var(--ln);border-radius:4px;font-size:10.5px;line-height:1.6;min-height:34px;white-space:pre-wrap;word-break:break-word}
+  .tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9.5px;font-weight:600}
+  .t-partial{background:rgba(224,162,60,.15);color:var(--warn)}
+  .t-blocked{background:rgba(224,96,76,.15);color:var(--bad)}
+  .t-ok{background:rgba(94,194,122,.15);color:var(--ok)}
+  #log{margin-top:11px;max-height:140px;overflow:auto;border-top:1px solid var(--ln);padding-top:9px}
+  .item{font-size:10px;color:var(--dim);padding:5px 0;border-bottom:1px solid var(--ln);line-height:1.5}
+  .item b{color:var(--fg);font-weight:500}
+  .foot{margin-top:11px;color:var(--dim);font-size:9.5px;line-height:1.5}
+</style>
+
+<h1>Browser Signal Layer</h1>
+<div class="sub">Remembers the work, not the worker. Local-first. No network. Human holds the trigger.</div>
+
+<div class="modes">
+  <button data-mode="off">OFF</button>
+  <button data-mode="click" class="on">CLICK</button>
+  <button data-mode="project">PROJECT</button>
+</div>
+
+<button class="cap" id="cap">CAPTURE THIS PAGE</button>
+
+<div class="row">
+  <button id="export">Export JSON</button>
+  <button id="clear">Clear store</button>
+</div>
+
+<div id="status">Idle. Capture is manual and on-demand.</div>
+<div id="log"></div>
+
+<div class="foot">Envelopes are stamped <span class="tag t-partial">PARTIAL</span> until a receipt comes back from your spine. Nothing is sent anywhere by this extension. Hand-off is a separate step you run yourself.</div>
+
+<script src="popup.js"></script>
