@@ -1,0 +1,1 @@
+{"cycle_id":"SCR-CYCLE-001","timestamp_utc":"2026-05-19T00:00:00Z","status":"PARTIAL","files_checked":4,"open_tasks":5,"blocked_tasks":0,"receipts_seen":3,"next_action":"await bridge heartbeat then sweep","runtime_proof":"seeded"}
