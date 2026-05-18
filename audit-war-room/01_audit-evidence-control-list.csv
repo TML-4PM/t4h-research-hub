@@ -1,0 +1,6 @@
+item_id,document_class,status,strength
+1,General ledger,MISSING,A
+2,Bank statements,MISSING,A
+3,GitHub commit export,PENDING,A
+4,CloudWatch logs,PENDING,A
+5,Experiment register,PENDING,B
