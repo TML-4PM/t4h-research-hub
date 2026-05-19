@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech 4 Humanity - IP Portfolio Prioritization Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select, button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:hover, button:hover {
+            border-color: #667eea;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .ip-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .ip-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .ip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .ip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .ip-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+            flex: 1;
+        }
+
+        .priority-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-critical { background: #fc8181; color: white; }
+        .priority-high { background: #f6ad55; color: white; }
+        .priority-medium { background: #f6e05e; color: #2d3748; }
+        .priority-low { background: #68d391; color: white; }
+
+        .ip-type {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #edf2f7;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .ip-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: #718096;
+            text-transform: uppercase;
+        }
+
+        .ip-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .score-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .expanded-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .ip-card.expanded .expanded-details {
+            display: block;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .detail-list {
+            padding-left: 20px;
+        }
+
+        .detail-list li {
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .controls { flex-direction: column; }
+            .ip-metrics { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 IP Portfolio Prioritization Matrix</h1>
+        <p class="subtitle">156 innovations scored, weighted & ranked for strategic execution</p>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-number" id="totalInnovations">156</span>
+                <span class="stat-label">Total Innovations</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="portfolioValue">$350M-500M</span>
+                <span class="stat-label">Portfolio Value</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="patentReady">89</span>
+                <span class="stat-label">Patent-Worthy</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="criticalPriority">10</span>
+                <span class="stat-label">Critical Priority</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter by Type:</label>
+                <select id="typeFilter">
+                    <option value="all">All Types</option>
+                    <option value="patent">Patents</option>
+                    <option value="trademark">Trademarks</option>
+                    <option value="trade-secret">Trade Secrets</option>
+                    <option value="publication">Publications</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Priority:</label>
+                <select id="priorityFilter">
+                    <option value="all">All Priorities</option>
+                    <option value="critical">Critical Only</option>
+                    <option value="high">High+</option>
+                    <option value="medium">Medium+</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select id="sortBy">
+                    <option value="score">Total Score</option>
+                    <option value="revenue">Revenue Potential</option>
+                    <option value="feasibility">Feasibility</option>
+                    <option value="strategic">Strategic Value</option>
+                </select>
+            </div>
+
+            <button id="exportBtn">📥 Export CSV</button>
+        </div>
+
+        <div class="ip-grid" id="ipGrid">
+            <!-- Innovations will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const innovations = [
+            {
+                id: 1,
+                name: "AI Sweet Spots Research",
+                type: ["patent", "publication", "trade-secret"],
+                priority: "critical",
+                description: "4,247 participant study on neurodivergent AI productivity. 44% ADHD gains vs 3% neurotypical. Cohen's d = 1.81.",
+                revenue: "$5M-15M ARR",
+                revenueValue: 10,
+                feasibility: 95,
+                strategic: 100,
+                marketReady: true,
+                timeToMarket: "1-2 years",
+                details: {
+                    ipOpportunities: [
+                        "Patent: AI intensity calibration system",
+                        "Patent: Real-time adaptive scaffolding",
+                        "Academic paper: Differential Productivity Effects",
+                        "Trade secret: Medication data (MPH vs AMP)"
+                    ],
+                    competitiveAdvantage: [
+                        "Largest neurodivergent AI study globally",
+                        "First-mover on quantified framework",
+                        "EU AI Act regulatory tailwind"
+                    ],
+                    nextSteps: [
+                        "File provisional patent (Week 1)",
+                        "Submit academic paper",
+                        "License to corporate training companies"
+                    ]
+                }
+            },
+            {
+                id: 2,
+                name: "Neural Ennead Framework",
+                type: ["patent", "trademark"],
+                priority: "critical",
+                description: "9×9×9 hierarchical agent orchestration. 10,000+ agent capacity. 727 deployed.",
+                revenue: "$10M-30M ARR",
+                revenueValue: 20,
+                feasibility: 90,
+                strategic: 95,
+                marketReady: true,
+                timeToMarket: "<1 year",
+                details: {
+                    ipOpportunities: [
+                        "Patent: Hierarchical orchestration method",
+                        "Patent: Intent-based routing",
+                        "Trademark: Neural Ennead name",
+                        "Academic paper: Scaling Agent Coordination"
+                    ],
+                    competitiveAdvantage: [
+                        "Only 3D agent taxonomy (vs flat/2D)",
+                        "Scales to enterprise complexity",
+                        "AutoGen/LangGraph don't match capability"
+                    ],
+                    nextSteps: [
+                        "File patent application",
+                        "Trademark registration",
+                        "Publish framework on arXiv"
+                    ]
+                }
+            },
+            {
+                id: 3,
+                name: "Holo-Org Platform",
+                type: ["trademark", "trade-secret"],
+                priority: "critical",
+                description: "10,000-agent platform. 189 Lambda functions. Real-time orchestration.",
+                revenue: "$10M-30M ARR",
+                revenueValue: 20,
+                feasibility: 95,
+                strategic: 90,
+                marketReady: true,
+                timeToMarket: "Active",
+                details: {
+                    ipOpportunities: [
+                        "Trademark: Holo-Org name",
+                        "Trade secret: Agent playbook",
+                        "Trade secret: Task templates",
+                        "Patent: Intent routing at scale"
+                    ],
+                    competitiveAdvantage: [
+                        "189 Lambda functions deployed",
+                        "Queensland AI Hub pilots",
+                        "696 mailboxes consolidated"
+                    ],
+                    nextSteps: [
+                        "Trademark filing (Week 1)",
+                        "Execute trade secret audit",
+                        "Government contract pursuit"
+                    ]
+                }
+            },
+            {
+                id: 4,
+                name: "NEUROPAK Ecosystem",
+                type: ["trademark", "trade-secret", "patent"],
+                priority: "critical",
+                description: "BCI supply chain intelligence. 2,847 suppliers. $890M visibility.",
+                revenue: "$89M-191M ARR",
+                revenueValue: 140,
+                feasibility: 80,
+                strategic: 95,
+                marketReady: false,
+                timeToMarket: "2-3 years",
+                details: {
+                    ipOpportunities: [
+                        "Trademark: NEUROPAK name",
+                        "Trade secret: 2,847 supplier database",
+                        "Trade secret: 342-segment classification",
+                        "Patent: Risk assessment methodology"
+                    ],
+                    competitiveAdvantage: [
+                        "Standards Australia BCI position",
+                        "$127B market OS positioning",
+                        "Government access via QLD AI Hub"
+                    ],
+                    nextSteps: [
+                        "Trademark filing",
+                        "Patent prior art search",
+                        "10 customer acquisition (Year 1)"
+                    ]
+                }
+            },
+            {
+                id: 5,
+                name: "Skills Proof Marketplace",
+                type: ["patent", "trademark"],
+                priority: "critical",
+                description: "W3C credentials with twist-step anti-gaming. 130+ SFIA roles.",
+                revenue: "$15M-45M ARR",
+                revenueValue: 30,
+                feasibility: 85,
+                strategic: 90,
+                marketReady: true,
+                timeToMarket: "1-2 years",
+                details: {
+                    ipOpportunities: [
+                        "Patent: Artefact Pack Schema with twist-step",
+                        "Patent: Three-drill proof methodology",
+                        "Patent: Coherence scoring",
+                        "Trademark: Skills Proof Marketplace"
+                    ],
+                    competitiveAdvantage: [
+                        "OpenID4VCI (EU wallet ready)",
+                        "Marketplace model (vs competitors)",
+                        "Twist-step prevents gaming"
+                    ],
+                    nextSteps: [
+                        "File provisional patent",
+                        "W3C standard proposal",
+                        "1,000 credentials issued (Year 1)"
+                    ]
+                }
+            },
+            {
+                id: 6,
+                name: "Biometric Insurance System",
+                type: ["patent"],
+                priority: "critical",
+                description: "4 patents, 82 claims. Real-time risk prediction 15-60 min ahead.",
+                revenue: "$87M-146M ARR",
+                revenueValue: 116,
+                feasibility: 75,
+                strategic: 85,
+                marketReady: false,
+                timeToMarket: "6-12 months",
+                details: {
+                    ipOpportunities: [
+                        "Patent 1: Multi-modal biometric fusion (27 claims)",
+                        "Patent 2: Predictive risk trajectory (31 claims)",
+                        "Patent 3: Dynamic pricing engine (15 claims)",
+                        "Patent 4: Automated claims + ZK proofs (9 claims)"
+                    ],
+                    competitiveAdvantage: [
+                        "Only system with ALL 4 innovations",
+                        "90%+ accuracy vs 70% telematics-only",
+                        "Zero-knowledge bio proofs novel"
+                    ],
+                    nextSteps: [
+                        "File 4 provisionals (Week 1) - $20K",
+                        "Build smartphone MVP - $15K",
+                        "20-30 pilot users"
+                    ]
+                }
+            },
+            {
+                id: 7,
+                name: "MCP Bridge Ecosystem",
+                type: ["patent", "trade-secret"],
+                priority: "high",
+                description: "Cross-AI coordination via Supabase queue. 189 Lambda functions.",
+                revenue: "N/A (Infrastructure)",
+                revenueValue: 0,
+                feasibility: 100,
+                strategic: 85,
+                marketReady: true,
+                timeToMarket: "Active",
+                details: {
+                    ipOpportunities: [
+                        "Patent: Cross-AI coordination method",
+                        "Trade secret: Polling architecture",
+                        "Open source: MCP protocol spec"
+                    ],
+                    competitiveAdvantage: [
+                        "Claude/GPT/Grok/Gemini connected",
+                        "2-second polling execution",
+                        "Autonomous operation post-auth"
+                    ],
+                    nextSteps: [
+                        "Patent vs open source decision",
+                        "Ecosystem growth strategy",
+                        "GitHub 500+ stars target"
+                    ]
+                }
+            },
+            {
+                id: 8,
+                name: "RATPAK / RatWorks",
+                type: ["trademark", "patent"],
+                priority: "high",
+                description: "Household robotics. 1M target by 2030. Beijing Fair Q4 2025.",
+                revenue: "$50M-150M ARR",
+                revenueValue: 100,
+                feasibility: 60,
+                strategic: 80,
+                marketReady: false,
+                timeToMarket: "3-5 years",
+                details: {
+                    ipOpportunities: [
+                        "Trademark: RATPAK and RatWorks",
+                        "Patent: RaaS modular deployment",
+                        "Patent: Autonomous household robot",
+                        "Patent: Swarm coordination"
+                    ],
+                    competitiveAdvantage: [
+                        "Tesla Optimus competitive response",
+                        "AU/APAC first-mover",
+                        "QLD Gov partnerships"
+                    ],
+                    nextSteps: [
+                        "Beijing Robotics Fair pitch",
+                        "Differentiation vs Optimus",
+                        "Pilot partners (eldercare)"
+                    ]
+                }
+            },
+            {
+                id: 9,
+                name: "FAR-CAGE (Federated Agent Registry)",
+                type: ["patent", "trademark"],
+                priority: "high",
+                description: "Sovereign governance for multi-cloud AI. DTA deployment target.",
+                revenue: "Gov contracts",
+                revenueValue: 50,
+                feasibility: 70,
+                strategic: 90,
+                marketReady: false,
+                timeToMarket: "2-3 years",
+                details: {
+                    ipOpportunities: [
+                        "Patent: Federated registry with risk tiers",
+                        "Trademark: FAR-CAGE name",
+                        "Trade secret: Multi-cloud orchestration"
+                    ],
+                    competitiveAdvantage: [
+                        "IRAP/FedRAMP+ compliance",
+                        "DTA deployment pathway",
+                        "Zero Trust architecture"
+                    ],
+                    nextSteps: [
+                        "Government RFT response",
+                        "Patent filing",
+                        "Defence contractor partnerships"
+                    ]
+                }
+            },
+            {
+                id: 10,
+                name: "WorkFamilyAI Platform",
+                type: ["trademark", "trade-secret"],
+                priority: "high",
+                description: "B2B workforce AI. 727 named agents. Neural Ennead integration.",
+                revenue: "$10M-30M ARR",
+                revenueValue: 20,
+                feasibility: 90,
+                strategic: 75,
+                marketReady: true,
+                timeToMarket: "<1 year",
+                details: {
+                    ipOpportunities: [
+                        "Trademark: WorkFamilyAI name",
+                        "Trade secret: 727 agent taxonomy",
+                        "Patent: Workforce impact simulation"
+                    ],
+                    competitiveAdvantage: [
+                        "727 agents operational",
+                        "Enterprise HR target",
+                        "Holo-Org integration"
+                    ],
+                    nextSteps: [
+                        "Trademark filing",
+                        "Enterprise sales launch",
+                        "5 pilot customers"
+                    ]
+                }
+            }
+        ];
+
+        // Calculate composite scores
+        innovations.forEach(inn => {
+            inn.totalScore = (inn.revenueValue * 0.4) + (inn.feasibility * 0.3) + (inn.strategic * 0.3);
+        });
+
+        function renderInnovations(filtered = innovations) {
+            const grid = document.getElementById('ipGrid');
+            grid.innerHTML = '';
+
+            filtered.forEach(inn => {
+                const card = document.createElement('div');
+                card.className = 'ip-card';
+                card.onclick = () => card.classList.toggle('expanded');
+                
+                const types = inn.type.map(t => `<span class="ip-type">${t}</span>`).join('');
+                
+                card.innerHTML = `
+                    <div class="ip-header">
+                        <div class="ip-title">${inn.name}</div>
+                        <span class="priority-badge priority-${inn.priority}">${inn.priority}</span>
+                    </div>
+                    <div>${types}</div>
+                    <p class="ip-description">${inn.description}</p>
+                    
+                    <div class="ip-metrics">
+                        <div class="metric">
+                            <span class="metric-value">${Math.round(inn.totalScore)}</span>
+                            <span class="metric-label">Total Score</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${inn.revenue}</span>
+                            <span class="metric-label">Revenue</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${inn.feasibility}%</span>
+                            <span class="metric-label">Feasibility</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${inn.strategic}%</span>
+                            <span class="metric-label">Strategic</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${inn.timeToMarket}</span>
+                            <span class="metric-label">Time to Market</span>
+                        </div>
+                    </div>
+
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: ${inn.totalScore}%"></div>
+                    </div>
+
+                    <div class="expanded-details">
+                        <div class="detail-section">
+                            <div class="detail-title">IP Opportunities</div>
+                            <ul class="detail-list">
+                                ${inn.details.ipOpportunities.map(o => `<li>${o}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <div class="detail-title">Competitive Advantage</div>
+                            <ul class="detail-list">
+                                ${inn.details.competitiveAdvantage.map(a => `<li>${a}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <div class="detail-title">Next Steps</div>
+                            <ul class="detail-list">
+                                ${inn.details.nextSteps.map(s => `<li>${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function applyFilters() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filtered = innovations.filter(inn => {
+                const typeMatch = typeFilter === 'all' || inn.type.includes(typeFilter);
+                let priorityMatch = true;
+                
+                if (priorityFilter === 'critical') priorityMatch = inn.priority === 'critical';
+                else if (priorityFilter === 'high') priorityMatch = ['critical', 'high'].includes(inn.priority);
+                else if (priorityFilter === 'medium') priorityMatch = ['critical', 'high', 'medium'].includes(inn.priority);
+
+                return typeMatch && priorityMatch;
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                if (sortBy === 'revenue') return b.revenueValue - a.revenueValue;
+                if (sortBy === 'feasibility') return b.feasibility - a.feasibility;
+                if (sortBy === 'strategic') return b.strategic - a.strategic;
+                return b.totalScore - a.totalScore;
+            });
+
+            renderInnovations(filtered);
+            
+            // Update stats
+            document.getElementById('totalInnovations').textContent = filtered.length;
+            document.getElementById('criticalPriority').textContent = 
+                filtered.filter(i => i.priority === 'critical').length;
+        }
+
+        function exportCSV() {
+            const headers = ['Rank', 'Innovation', 'Type', 'Priority', 'Total Score', 'Revenue', 'Feasibility', 'Strategic', 'Market Ready', 'Time to Market'];
+            const rows = innovations.map((inn, idx) => [
+                idx + 1,
+                inn.name,
+                inn.type.join('; '),
+                inn.priority,
+                Math.round(inn.totalScore),
+                inn.revenue,
+                inn.feasibility,
+                inn.strategic,
+                inn.marketReady ? 'Yes' : 'No',
+                inn.timeToMarket
+            ]);
+
+            const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tech4humanity_ip_portfolio.csv';
+            a.click();
+        }
+
+        // Event listeners
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('priorityFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
+        document.getElementById('exportBtn').addEventListener('click', exportCSV);
+
+        // Initial render
+        renderInnovations();
+    </script>
+</body>
+</html>
