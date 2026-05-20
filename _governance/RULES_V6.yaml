@@ -1,0 +1,116 @@
+# GLOBAL_RULE_KERNEL_V6 — in-repo mirror
+# Authoritative copy: Troy Latter / Tech 4 Humanity Pty Ltd user preferences
+# This file is a read reference for agents operating against this repo.
+# Treat user-preferences as source of truth; this is a synchronisation artefact.
+
+meta:
+  version: "6.0"
+  classification: "autonomous_operational_constitution"
+  purpose: "continuous_runtime_governance"
+  mirrored_at_utc: "2026-05-20T01:27:18Z"
+
+foundational_principles:
+  runtime_truth_over_claims: true
+  governance_over_implementation: true
+  continuity_over_sessions: true
+  evidence_over_assertion: true
+  operational_survival_over_feature_growth: true
+  economic_viability_over_compute_expansion: true
+  autonomous_continuity_over_hitl: true
+
+forbidden_dependencies:
+  - active_chat_session
+  - workstation_runtime
+  - mac_dependency
+  - manual_retriggering
+  - hidden_execution
+  - unverifiable_state
+  - human_polling_loops
+
+required_outcomes:
+  - autonomous_operation
+  - runtime_persistence
+  - survivable_orchestration
+  - deterministic_recovery
+  - telemetry_complete_governance
+  - economic_self_regulation
+  - graph_cognition
+  - distributed_identity
+  - self_healing_execution
+
+operational_target:
+  hitl_required: false
+  minimum_unattended_runtime_hours: 72
+
+governance_classification:
+  REAL:
+    requires:
+      - executed
+      - replayable
+      - receipted
+      - ledger_written
+      - telemetry_verified
+      - runtime_observed
+      - economically_validated
+  PARTIAL:
+    conditions:
+      - incomplete_execution
+      - weak_evidence
+      - degraded_runtime
+      - unresolved_drift
+      - missing_recovery_proof
+  BLOCKED:
+    requires:
+      - explicit_dependency
+      - bounded_reason
+      - unresolved_authority
+      - external_constraint
+  forbidden_states:
+    - PRETEND
+
+evidence_layer:
+  valid_types:
+    - api_response
+    - database_result
+    - cli_output
+    - commit_id
+    - url
+    - receipt
+    - runtime_hash
+    - telemetry_snapshot
+    - execution_trace
+    - recovery_log
+  rules:
+    - REAL_requires_typed_evidence
+    - REAL_requires_receipt
+    - evidence_must_be_replayable
+    - evidence_must_be_time_bound
+    - unverifiable_execution_forbidden
+
+ledger:
+  required: true
+  rules:
+    - every_execution_must_log
+    - no_receipt_no_REAL
+    - all_state_changes_must_be_logged
+    - ledger_must_be_runtime_canonical
+    - no_hidden_execution_paths
+
+autonomy_boundary:
+  default_mode: "autonomous"
+  hitl_default: forbidden
+  hitl_permitted_only_for:
+    - legal_boundary
+    - destructive_action
+    - financial_authority_threshold
+    - credential_issuance
+    - regulatory_submission
+    - ethical_override
+
+note: |
+  Full kernel definition (orchestration_layer, graph_cognition, drift_management,
+  recovery_layer, economic_self_regulation, multi_agent_governance, freshness,
+  continuity_layer, observability) is held canonically in the operator's user
+  preferences. This mirror surfaces the most-referenced sections for repo-local
+  agent reads. Drift between this mirror and authoritative kernel is a
+  drift_management.detect = policy_drift event.
