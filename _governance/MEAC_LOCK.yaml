@@ -1,0 +1,52 @@
+# MEAC / Study Retrieval Workstream — LOCK CONTRACT
+# Authority: GLOBAL_RULE_KERNEL_V6
+# Origin: preceding ChatGPT session, ratified by Troy Latter
+
+lock_id: "meac_study_retrieval_lock_v1"
+state: "BLOCKED"
+governance_classification: "BLOCKED"
+locked_at_utc: "2026-05-20T01:27:18Z"
+locked_by_runtime: "claude.ai_session"
+ratified_by: "troy.latter"
+
+reason: |
+  Design work on MEAC / study retrieval was proceeding from inference rather than
+  from proof of existence. Per V6 evidence_over_assertion + governance_over_implementation,
+  no further build work on this stream is permitted until existence audit completes and
+  returns confidence 1.00 (not 0.95+).
+
+allowed_actions:
+  - "discover"
+  - "search"
+  - "inventory"
+  - "compare"
+  - "prove"
+  - "classify"
+  - "report"
+
+blocked_actions:
+  - "new schema proposals"
+  - "new tables"
+  - "new architecture diagrams"
+  - "new UI surfaces"
+  - "new registry proposals"
+  - "new MEAC build work of any kind"
+
+unlock_conditions_all_required:
+  - "search executed across: t4h-research-hub, research repos, Supabase schemas, command centre, research registries, AI Sweet Spots pages, asset and IP registries"
+  - "existence report produced classifying each candidate as EXISTS_REAL | EXISTS_PARTIAL | EXISTS_DUPLICATE | DOES_NOT_EXIST | UNKNOWN"
+  - "decision recorded: EXTEND | MERGE | CREATE"
+  - "decision logged to audit.log + stamp.lifecycle_log"
+  - "receipt commit_sha attached"
+
+cross_stream_isolation:
+  ato_investigation_2024_2025: "ALLOWED to continue independently"
+  cognitive_ergonomics: "ALLOWED"
+  ai_sweet_spots: "ALLOWED"
+  rule: "no bleed-over from MEAC freeze to other workstreams unless explicit governance edge declares dependency"
+
+reopen_authority:
+  - actor: "troy.latter"
+    method: "explicit unlock instruction"
+  - actor: "autonomy_runtime"
+    method: "all unlock_conditions satisfied + receipt"
