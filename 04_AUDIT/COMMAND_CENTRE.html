@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATO Investigation Command Centre — Tech 4 Humanity</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #14181d;
+      --panel-2: #1a1f26;
+      --ink: #e6edf3;
+      --muted: #8b949e;
+      --real: #2ea043;
+      --partial: #d29922;
+      --weak: #db6d28;
+      --blocked: #f85149;
+      --rule: #21262d;
+      --accent: #58a6ff;
+      --headline: #ffd33d;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); padding: 28px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.02em; }
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 28px 0 10px; font-weight: 600; }
+    h3 { font-size: 16px; margin: 16px 0 8px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; }
+    .card.tall { padding: 20px; }
+    .big { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+    .huge { font-size: 48px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--headline); }
+    .pos { color: var(--real); }
+    .neg { color: var(--blocked); }
+    .warn { color: var(--partial); }
+    .state { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .state.REAL { background: rgba(46,160,67,0.18); color: var(--real); }
+    .state.PARTIAL { background: rgba(210,153,34,0.18); color: var(--partial); }
+    .state.WEAK { background: rgba(219,109,40,0.18); color: var(--weak); }
+    .state.BLOCKED { background: rgba(248,81,73,0.18); color: var(--blocked); }
+    .state.P0 { background: rgba(248,81,73,0.18); color: var(--blocked); }
+    .state.OUT_OF_SCOPE { background: rgba(139,148,158,0.18); color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+    th { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; }
+    td.num { text-align: right; }
+    .gate { background: var(--panel-2); border: 1px solid var(--rule); border-left: 4px solid var(--partial); border-radius: 10px; padding: 18px; margin: 28px 0; display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: center; }
+    .gate.REAL { border-left-color: var(--real); }
+    .gate.PARTIAL { border-left-color: var(--partial); }
+    .gate.WEAK { border-left-color: var(--weak); }
+    .gate.BLOCKED { border-left-color: var(--blocked); }
+    .countdown-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .countdown { background: linear-gradient(135deg, #14181d 0%, #1a1f26 100%); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; }
+    .ct-days { font-size: 38px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+    .ct-days.red { color: var(--blocked); }
+    .ct-days.orange { color: var(--weak); }
+    .ct-days.yellow { color: var(--partial); }
+    .ct-days.green { color: var(--real); }
+    .ct-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px; }
+    .ct-date { font-size: 13px; margin-top: 4px; }
+    .actions { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; }
+    .actions li { margin: 8px 0; }
+    .challenge { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+    .challenge:last-child { border-bottom: 0; }
+    .challenge .q { color: var(--partial); font-weight: 600; margin-bottom: 6px; }
+    .challenge .a { color: var(--ink); font-size: 14px; }
+    .footnote { color: var(--muted); font-size: 12px; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rule); }
+    code { background: #161b22; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+    .bar { height: 6px; background: #21262d; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+    .bar > span { display: block; height: 100%; background: var(--accent); }
+    .lead { font-size: 17px; line-height: 1.55; margin: 12px 0; }
+    .lead strong { color: var(--headline); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hide-mobile { display: block; }
+    @media (max-width: 720px) {
+      body { padding: 18px; }
+      .gate { grid-template-columns: 1fr; }
+      .hide-mobile { display: none; }
+      h1 { font-size: 22px; }
+      .big { font-size: 28px; }
+      .huge { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ATO Investigation Command Centre</h1>
+    <div class="sub" id="sub">Loading…</div>
+  </header>
+
+  <!-- COUNTDOWN -->
+  <h2>Time to Defend</h2>
+  <div class="countdown-row" id="countdownRow"></div>
+
+  <!-- HEADLINE POSITION -->
+  <h2>What's at Stake</h2>
+  <div class="deck">
+    <div class="card tall">
+      <div class="sub">FY24-25 RDTI refund expectation</div>
+      <div class="huge" id="refund">—</div>
+      <div class="sub" id="refundSub">—</div>
+    </div>
+    <div class="card tall">
+      <div class="sub">Eligible R&D spend FY24-25</div>
+      <div class="big" id="eligible">—</div>
+      <div class="sub" id="eligibleSub">— labour + — non-labour</div>
+    </div>
+    <div class="card tall">
+      <div class="sub">Evidence completeness</div>
+      <div class="big pos" id="completeness">—</div>
+      <div class="sub" id="completenessSub">— claims · — artefacts indexed</div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER GATE BAND -->
+  <div class="gate PARTIAL" id="gateBand">
+    <div>
+      <div class="sub">Customer Centricity Gate</div>
+      <div class="big" id="gateScore">—</div>
+      <span class="state PARTIAL" id="gateState">—</span>
+    </div>
+    <div>
+      <div style="font-weight:600;margin-bottom:6px">This Command Centre is governed by a promotion gate.</div>
+      <div class="sub">Nothing reaches <span class="state REAL">REAL</span> on code or data alone. The gate reaches 1.0 only when a real adviser or auditor uses this surface to defend a claim. Until then, honest state is <span class="state PARTIAL">PARTIAL</span>. <a href="../08_BUSINESS_GATES/widget.html">Open gate dashboard →</a></div>
+    </div>
+  </div>
+
+  <!-- POSITION BY FY -->
+  <h2>RDTI Position — All Years</h2>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>FY</th><th class="num">Labour</th><th class="num">Non-labour R&D</th><th class="num">Total eligible</th><th class="num">Expected refund (43.5%)</th></tr>
+      </thead>
+      <tbody id="fyTable"></tbody>
+    </table>
+  </div>
+
+  <!-- GAPS TO CLOSE -->
+  <h2>Gaps to Close Before 3 June</h2>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Programme</th><th class="num">Target</th><th class="num">Registered</th><th class="num">Coverage</th><th class="num">Gap</th><th>Severity</th><th class="hide-mobile">Action</th></tr>
+      </thead>
+      <tbody id="gapsTable"></tbody>
+    </table>
+  </div>
+
+  <!-- AUDIT CHALLENGES -->
+  <h2>Top Audit Challenges & Defences</h2>
+  <div class="card" id="challengesCard"></div>
+
+  <!-- NEXT ACTIONS -->
+  <h2>Next Actions</h2>
+  <div class="actions">
+    <ul id="actions"></ul>
+  </div>
+
+  <!-- FOOTNOTES -->
+  <div class="footnote" id="footnote">Loading sources…</div>
+
+  <script>
+    const fmtMoney = n => n == null ? '—' : '$' + Math.round(n).toLocaleString();
+    const fmtMoneyK = n => n == null ? '—' : '$' + Math.round(n/1000).toLocaleString() + 'K';
+    const fmtPct = p => p == null ? '—' : p.toFixed(1) + '%';
+    const daysUntil = iso => {
+      const d = new Date(iso + 'T00:00:00+10:00');
+      const now = new Date();
+      return Math.ceil((d - now) / 86400000);
+    };
+    const dayColor = d => d <= 7 ? 'red' : d <= 14 ? 'orange' : d <= 30 ? 'yellow' : 'green';
+
+    fetch('./snapshot.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(s => {
+        document.getElementById('sub').textContent =
+          s.entity.name + ' · ABN ' + s.entity.abn + ' · as of ' + new Date(s.as_of).toLocaleString();
+
+        // Countdown
+        const cd = [
+          { key: 'internal_target', label: 'Internal target', date: s.deadlines.internal_target },
+          { key: 'ato_review',      label: 'ATO review',      date: s.deadlines.ato_review },
+          { key: 'rdti_lodgement_fy2526', label: 'FY25-26 lodgement', date: s.deadlines.rdti_lodgement_fy2526 }
+        ];
+        document.getElementById('countdownRow').innerHTML = cd.map(c => {
+          const d = daysUntil(c.date);
+          const col = dayColor(d);
+          return `<div class="countdown"><div class="ct-days ${col}">${d}</div><div class="ct-label">days · ${c.label}</div><div class="ct-date">${c.date}</div></div>`;
+        }).join('');
+
+        // Headlines
+        const p = s.position_at_stake;
+        document.getElementById('refund').textContent = fmtMoney(p.rdti_refund_aud);
+        document.getElementById('refundSub').textContent = p.fy + ' · ' + p.offset_pct + '% offset rate';
+        document.getElementById('eligible').textContent = fmtMoney(p.total_eligible_aud);
+        document.getElementById('eligibleSub').textContent = fmtMoneyK(p.labour_aud) + ' labour + ' + fmtMoneyK(p.bank_rd_aud) + ' non-labour';
+        const ev = s.evidence_strength_fy2425;
+        document.getElementById('completeness').textContent = ev.avg_completeness_pct + '%';
+        document.getElementById('completenessSub').textContent =
+          ev.rd_matrix_claims + ' R&D claims · ' + ev.artifact_hashes_registered + ' artefacts indexed · ' + ev.transactions_indexed + ' txns';
+
+        // Gate band
+        document.getElementById('gateScore').textContent = s.customer_gate_score.toFixed(3);
+        const gs = document.getElementById('gateState');
+        gs.textContent = s.customer_gate_state;
+        gs.className = 'state ' + s.customer_gate_state;
+        const gb = document.getElementById('gateBand');
+        gb.className = 'gate ' + s.customer_gate_state;
+
+        // FY table
+        document.getElementById('fyTable').innerHTML = s.rdti_by_fy.map(r => {
+          const isStake = r.fy === p.fy;
+          return `<tr style="${isStake ? 'background:rgba(255,211,61,0.06)' : ''}"><td>${r.fy}${isStake ? ' <span class="state PARTIAL">at stake</span>' : ''}</td><td class="num">${fmtMoney(r.labour)}</td><td class="num">${fmtMoney(r.bank_rd)}</td><td class="num">${fmtMoney(r.total_eligible)}</td><td class="num">${fmtMoney(r.rdti_refund)}</td></tr>`;
+        }).join('');
+
+        // Gaps
+        document.getElementById('gapsTable').innerHTML = s.gaps.map(g => {
+          const sev = g.severity;
+          return `<tr><td><strong>${g.programme_code}</strong><br><span class="sub">${g.label}</span></td><td class="num">${fmtMoney(g.target_aud)}</td><td class="num">${fmtMoney(g.registered_aud)}</td><td class="num">${fmtPct(g.coverage_pct)}</td><td class="num">${fmtMoney(g.gap_aud)}</td><td><span class="state ${sev}">${sev.replace('_',' ')}</span></td><td class="hide-mobile sub">${g.action}</td></tr>`;
+        }).join('');
+
+        // Challenges
+        document.getElementById('challengesCard').innerHTML = s.top_audit_challenges.map(c =>
+          `<div class="challenge"><div class="q">${c.challenge}</div><div class="a">${c.defence}</div></div>`
+        ).join('');
+
+        // Actions
+        document.getElementById('actions').innerHTML = s.next_actions_before_internal_target
+          .map(a => `<li>${a}</li>`).join('');
+
+        // Footer
+        const progs = s.programmes_in_scope.map(p => `<code>${p.code}</code> ${p.name}`).join(' · ');
+        document.getElementById('footnote').innerHTML =
+          `Programmes in FY24-25 scope: ${progs}. ` +
+          `Director: ${s.entity.director}. Adviser: ${s.entity.adviser}. ` +
+          `Data source: ${s.source} via canonical views (<code>v_rdti_by_fy</code>, <code>v_evidence_index_summary</code>, <code>v_rdti_fy2425_gap_analysis</code>). ` +
+          `Refresh via GitHub Action on <code>04_AUDIT/**</code> path. ` +
+          `Path to REAL: ${s.path_to_REAL}`;
+      })
+      .catch(e => {
+        document.getElementById('sub').textContent = 'Failed to load snapshot: ' + e.message;
+      });
+  </script>
+</body>
+</html>
