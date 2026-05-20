@@ -1,7 +1,7 @@
 {
-  "receipt_id": "gate-26134921504",
-  "run_url": "https://github.com/TML-4PM/t4h-research-hub/actions/runs/26134921504",
-  "commit": "310d4092d464d0c7155a1517c58fd1aba95742c8",
+  "receipt_id": "gate-26191005612",
+  "run_url": "https://github.com/TML-4PM/t4h-research-hub/actions/runs/26191005612",
+  "commit": "7101482bd1e63f48f5af98e6aa9d2f272264f814",
   "workflow": "customer-gate",
   "actor": "TML-4PM",
   "gate": "customer_centricity",
@@ -12,5 +12,5 @@
     "command_centre": "ATO Investigation 2024/2025",
     "reality_ledger_entity": "t4h.gate.customer_centricity"
   },
-  "generated_at": "2026-05-20T01:05:56.162Z"
+  "generated_at": "2026-05-20T21:27:59.953Z"
 }
