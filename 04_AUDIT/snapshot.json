@@ -1,0 +1,116 @@
+{
+  "as_of": "2026-05-20T01:30:00Z",
+  "source": "S1: lzfgigiyqpuuxslsygjt",
+  "entity": {
+    "name": "Tech 4 Humanity Pty Ltd",
+    "abn": "70 666 271 272",
+    "director": "Troy Latter",
+    "adviser": "Andrew Douglas, Hales Redden"
+  },
+  "deadlines": {
+    "ato_review": "2026-06-10",
+    "internal_target": "2026-06-03",
+    "rdti_lodgement_fy2526": "2027-04-30"
+  },
+  "position_at_stake": {
+    "fy": "FY24-25",
+    "total_eligible_aud": 2155689.59,
+    "labour_aud": 1592250,
+    "bank_rd_aud": 563439.59,
+    "rdti_refund_aud": 937724.97,
+    "offset_pct": 43.5
+  },
+  "rdti_by_fy": [
+    { "fy": "FY22-23", "labour": 432600, "bank_rd": 17986.41, "total_eligible": 450586.41, "rdti_refund": 196005.09 },
+    { "fy": "FY23-24", "labour": 1397800, "bank_rd": 1613.78, "total_eligible": 1399413.78, "rdti_refund": 608744.99 },
+    { "fy": "FY24-25", "labour": 1592250, "bank_rd": 563439.59, "total_eligible": 2155689.59, "rdti_refund": 937724.97 },
+    { "fy": "FY25-26", "labour": 1935300, "bank_rd": 21011.43, "total_eligible": 1956311.43, "rdti_refund": 850995.47 }
+  ],
+  "evidence_strength_fy2425": {
+    "transactions_indexed": 246,
+    "total_spend_aud": 616926,
+    "register_items": 12,
+    "rd_matrix_claims": 25,
+    "avg_completeness_pct": 92,
+    "high_completeness_claims": 25,
+    "medium_completeness_claims": 0,
+    "low_completeness_claims": 0,
+    "claims_with_ip_linked": 25,
+    "claims_with_chat_evidence": 13,
+    "artifact_hashes_registered": 282
+  },
+  "programmes_in_scope": [
+    { "code": "7D-DCP", "name": "Digital Child Protection R&D — 7 Dimensions Framework", "type": "research" },
+    { "code": "ASS",    "name": "AI Cognitive Diversity & Sweet Spots Research Programme", "type": "research" }
+  ],
+  "gaps": [
+    {
+      "programme_code": "ASS",
+      "label": "AI Sweet Spots — under half coverage",
+      "target_aud": 1000000,
+      "registered_aud": 279800,
+      "gap_aud": 720200,
+      "coverage_pct": 28,
+      "severity": "P0",
+      "cost_item_count": 9,
+      "confirmed": 1,
+      "pending": 8,
+      "action": "Convert 8 pending cost items to confirmed evidence; bind transactions to ASS programme code; index chat & GitHub artefacts."
+    },
+    {
+      "programme_code": "7D-DCP",
+      "label": "7D Digital Child Protection — under half coverage",
+      "target_aud": 800000,
+      "registered_aud": 294900,
+      "gap_aud": 505100,
+      "coverage_pct": 36.9,
+      "severity": "P0",
+      "cost_item_count": 13,
+      "confirmed": 1,
+      "pending": 12,
+      "action": "Confirm 12 pending cost items; bind ConsentX, ReadingBuddy, child-safety artefacts to 7D-DCP programme code."
+    },
+    {
+      "programme_code": "SPIRAL",
+      "label": "Spiral — out of FY24-25 scope (canonical)",
+      "target_aud": 336791,
+      "registered_aud": 0,
+      "gap_aud": 0,
+      "coverage_pct": null,
+      "severity": "OUT_OF_SCOPE",
+      "cost_item_count": 0,
+      "confirmed": 0,
+      "pending": 0,
+      "action": "No action. SPIRAL is FY25-26 development programme; excluded from FY24-25 RDTI scope by canon. The gap view shows it because the target table still lists it; this is annotation, not a defect."
+    }
+  ],
+  "top_audit_challenges": [
+    {
+      "challenge": "Why is FY24-25 spend so much higher than prior years?",
+      "defence": "Programme expansion: ASS scaled from pilot to n=11,241+, 7D-DCP entered framework-build phase. Labour and non-labour both grew with documented scope expansion; 92% claim completeness, 25/25 IP-linked."
+    },
+    {
+      "challenge": "Show contemporaneous records — not retrospective reconstruction.",
+      "defence": "282 artefact hashes registered. 25 R&D claims with IP linkage. 13 claims corroborated by chat evidence. GitHub commit history, CloudWatch logs, Supabase migrations, and MAAT transaction ledger provide cross-source corroboration."
+    },
+    {
+      "challenge": "How is labour cost calculated?",
+      "defence": "Director R&D labour at canonical $500/hr; allocations reconciled via v_rdti_labour_actual and v_rdti_timesheet_timelog_reconcile_fy2425. Hours bound to programme codes 7D-DCP and ASS only for FY24-25."
+    },
+    {
+      "challenge": "Are claimed activities genuinely experimental?",
+      "defence": "Hypotheses recorded prior to experiments (chat + GitHub timestamps), outcomes unknown at start (n=11,241+ research design), systematic investigation documented in RD matrix with 25/25 entries linked to IP."
+    }
+  ],
+  "next_actions_before_internal_target": [
+    "Confirm 12 pending 7D-DCP cost items (lift coverage 36.9% → 80%+).",
+    "Confirm 8 pending ASS cost items (lift coverage 28% → 70%+).",
+    "Bind remaining 12 chat-evidence-only claims to GitHub commit or transaction.",
+    "Produce adviser-ready PDF pack from evidence register.",
+    "Run final reconciliation: v_rdti_timesheet_timelog_reconcile_fy2425 = clean.",
+    "Brief Andrew Douglas (Hales Redden) on defence narrative."
+  ],
+  "customer_gate_score": 0.873,
+  "customer_gate_state": "PARTIAL",
+  "path_to_REAL": "First adviser or auditor session against this Command Centre = REAL."
+}
