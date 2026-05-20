@@ -1,0 +1,68 @@
+# ATO Investigation — Section Build Gate
+# Enforces: DISCOVER → PROVE → DECIDE → BUILD
+# Authority: GLOBAL_RULE_KERNEL_V6 / foundational_principles
+
+gate_id: "ato_investigation_section_gate"
+governed_by: "GLOBAL_RULE_KERNEL_V6"
+mode: "discover_first"
+
+stages:
+  - id: "DISCOVER"
+    required: true
+    actions:
+      - "enumerate existing objects in this section"
+      - "scan upstream sources (Drive, Supabase, MAAT, repos)"
+      - "produce candidate list with confidence scores"
+    output_required: "objects-found-with-confidence"
+
+  - id: "PROVE"
+    required: true
+    actions:
+      - "verify each candidate against canonical source"
+      - "attach typed evidence (api_response | commit_id | url | receipt | runtime_hash)"
+      - "classify as FOUND_REAL | FOUND_PARTIAL | FOUND_STALE | NOT_FOUND | UNKNOWN"
+    output_required: "evidence-typed-classification"
+
+  - id: "DECIDE"
+    required: true
+    decision_matrix:
+      FOUND_REAL: "EXTEND"
+      FOUND_PARTIAL: "EXTEND_OR_REPAIR"
+      FOUND_DUPLICATE: "MERGE"
+      FOUND_STALE: "REFRESH"
+      NOT_FOUND: "CREATE"
+      UNKNOWN: "STOP_AND_RESEARCH"
+
+  - id: "BUILD"
+    required: true
+    preconditions:
+      - "DISCOVER complete"
+      - "PROVE complete"
+      - "DECIDE recorded in CHANGELOG.md"
+      - "receipt_chain entry drafted in manifest.yaml"
+    forbidden_without_gate:
+      - "new schema"
+      - "new tables"
+      - "new dashboards"
+      - "new registries"
+      - "new UI surfaces"
+      - "new workflows"
+      - "new bridge payloads"
+      - "new studies"
+
+confidence_threshold:
+  build_unlock_minimum: 1.0
+  reason: "V6 demands evidence_over_assertion; 0.95 is not enough when ones exist elsewhere"
+
+failure_modes:
+  - mode: "skip_DISCOVER"
+    consequence: "build invalid; reclassify all output as PRETEND-equivalent (PARTIAL with no evidence)"
+  - mode: "weak_PROVE"
+    consequence: "auto-downgrade to PARTIAL"
+  - mode: "no_DECIDE_record"
+    consequence: "block BUILD until recorded"
+
+audit_targets:
+  - "stamp.lifecycle_log"
+  - "audit.log"
+  - "t4h_canonical_changes"
