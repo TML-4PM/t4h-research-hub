@@ -6,9 +6,17 @@ Owner: Tech 4 Humanity / Troy Latter
 
 ## Purpose
 
-This ledger reconciles the known T4H research estate across Drive, GitHub, and public evidence. It prevents AI Sweet Spots from swallowing the entire research program and creates a parent view for research/IP, assets, posters, dashboards, grants, and productisation.
+This ledger reconciles the known T4H research estate across Drive, GitHub, Notion, and public evidence. It prevents AI Sweet Spots from swallowing the entire research program and creates a parent view for research/IP, assets, posters, dashboards, grants, and productisation.
 
 ## Evidence inspected
+
+### Notion sources found
+
+| Evidence ID | Source | Type | Date signal | Status | Notes |
+|---|---|---|---:|---|---|
+| N001 | `Receipt: House Rules — Research Before Human / MCP-first execution` | Notion receipt | 2026-05-15 | FOUND | Confirms Reality Ledger/MCP governance exists as operating receipt, not just concept. |
+| N002 | `Receipt: Journey Maps Must Bind to Service Catalogs` | Notion receipt | 2026-05-15 | FOUND | Supports service-catalog binding rule for research journeys/assets. |
+| N003 | `True Trust — Business in Development Register` | Notion page | 2026-05-15 | FOUND | Reality ledger language present in business-development register. |
 
 ### Drive sources found
 
@@ -24,6 +32,21 @@ This ledger reconciles the known T4H research estate across Drive, GitHub, and p
 | D008 | `Digital_Child_Protection_Research_IP_Framework` | PDF | 2026-05-11 | FOUND | Distinct research/IP stream. |
 | D009 | `Living_Symbols_Research_Proposal_Template` | DOCX/PDF | 2026-05-13 | FOUND | Distinct research/proposal stream. |
 | D010 | `general AI sweet spots posters - research needs completing` | Doc/PDF | 2026-04/05 | FOUND | AI Sweet Spots poster/research backlog. |
+| D011 | `neurotech-informed-consent-tool.html` | HTML tool | 2026-05-07 | USED | Live consent assessment tool. Promotes ConsentX/dynamic consent to first-class stream. |
+| D012 | `consent` | Drive folder | 2026-03-25 | FOUND | Dedicated consent folder exists. |
+| D013 | `OwnYourAI x ConsentX.html` | HTML exports | 2026-03-15 | FOUND | ConsentX is connected to OwnYourAI and public/product surfaces. |
+| D014 | `W6_Participant_Consent_Framework` | DOCX | 2026-03-23 | FOUND | Participant consent framework exists. |
+| D015 | `great-sludge-purge-why-governments-must-eliminate-drag` | HTML article | 2025/2026 copies | USED | AI Sludge / public systems has article assets. |
+| D016 | `sludge-system-fixing-australias-healthcare-mess-real-time` | HTML article | 2025/2026 copies | USED | Healthcare/public systems sludge stream has article assets. |
+| D017 | `rhythm-method-full-audit.md.md` | Markdown audit | 2026-05-13 | USED | Rhythm Method has full product audit and research framing. |
+| D018 | `rhythm-48hr-launch-checklist.md.md` | Markdown launch checklist | 2026-05-13 | FOUND | Rhythm Method launch readiness asset. |
+| D019 | `01_rhythm-method-domain-spine.md` | Markdown domain spine | 2026-05-11 | FOUND | Rhythm Method has domain-spine architecture. |
+| D020 | `rhythm-method.html` | HTML surface | 2026-02-20 | FOUND | Rhythm Method has standalone HTML asset. |
+| D021 | `7_Dimensions_Digital_Child_Protection_Completed.pdf` | Completed PDF | 2026-04-23 | USED | Digital Child Protection is complete long-form asset. |
+| D022 | `7_Dimensions_Digital_Child_Protection_Finished.docx` | Finished DOCX | 2026-04-23 | FOUND | Editable finished version exists. |
+| D023 | `7_Dimensions_Digital_Child_Protection_Premium.pdf` | Premium PDF | 2026-04-23 | FOUND | Premium formatted asset exists. |
+| D024 | `The Invisible Watchers - How Platforms Track Children Without Accounts.pdf` | Article PDF | 2026-05-13 | FOUND | Digital child protection sub-article exists. |
+| D025 | `beyond-ban-australias-social-media-minimum-age-7-digital...html` | HTML article | 2026-03 | FOUND | Public/web-ready article asset exists. |
 
 ### GitHub repositories found
 
@@ -37,7 +60,7 @@ This ledger reconciles the known T4H research estate across Drive, GitHub, and p
 
 ## Corrected architecture
 
-AI Sweet Spots is a major program, not the parent container. The correct parent is T4H Research Hub, backed by Research IP Operating Model, Research Asset Register, IP Registry, and live status surfaces.
+AI Sweet Spots is a major program, not the parent container. The correct parent is T4H Research Hub, backed by Research IP Operating Model, Research Asset Register, IP Registry, Notion receipts, and live status surfaces.
 
 ```yaml
 research_parent:
@@ -46,6 +69,7 @@ research_parent:
   sweet_spots_surface: TML-4PM/ai-sweet-spots-for-all
   operating_model: T4H_ResearchIP_OperatingModel_v1
   live_status_seed: research-status-live.html
+  governance_receipts: Notion Reality Ledger / MCP-first receipts
 ```
 
 ## Reconciled research streams
@@ -54,21 +78,21 @@ research_parent:
 |---|---|---|---|---|---|
 | AI Sweet Spots / Human-AI Fit | Human-AI calibration | SPINE | assessments, tools, training, research licensing | PARTIAL | Build evidence registry + poster matrix. |
 | Neuroinclusion and Cognitive Accommodation | Inclusion/workforce | SPINE | workplace programs, education, tools | PARTIAL | Separate evidence-based claims from hypotheses. |
-| ConsentX / Dynamic Consent | Governance/platform | SPINE CANDIDATE | consent SaaS, audit, policy | PARTIAL | Promote out of subtopic status. |
+| ConsentX / Dynamic Consent | Governance/platform | SPINE | consent SaaS, audit, policy | ASSET-BACKED PARTIAL | Bind consent HTML tool, folder, OwnYourAI exports, participant framework. |
 | MyNeuralSignal / Signal Measurement | Signal/biomarker | SPINE | signal products, research data | PARTIAL | Bind to Sweet Spot Drift and ConsentX. |
 | GC-BAT / Neuro-governance Futures | Foresight/governance | SPINE | council, policy, advisory | PARTIAL | Bind vignettes to impact/evidence matrix. |
 | Drug Resilience Atlas | Behaviour/law/biology | SPINE | atlas, public research, policy | PARTIAL | Connect existing DRA dataset/assets. |
-| Digital Child Protection | Child safety/IP | SPINE CANDIDATE | education, safety tools, advisory | PARTIAL | Inspect framework and connect to Reading Buddy. |
-| AI Sludge / Public Systems | Public sector AI | SPINE CANDIDATE | advisory, audit, public reports | PARTIAL | Pull completed Australia series into hub. |
-| AI in Australian Healthcare Systems | Health systems/access | SPINE CANDIDATE | reports, advisory, HealthFlow | PARTIAL | Separate from biology-focused research. |
+| Digital Child Protection | Child safety/IP | SPINE | education, safety tools, advisory | ASSET-BACKED PARTIAL | Bind completed PDF/DOCX, premium PDF, IP framework, article surfaces. |
+| AI Sludge / Public Systems | Public sector AI | SPINE CANDIDATE | advisory, audit, public reports | ASSET-BACKED PARTIAL | Pull Great Sludge Purge and healthcare sludge assets into hub. |
+| AI in Australian Healthcare Systems | Health systems/access | SPINE CANDIDATE | reports, advisory, HealthFlow | ASSET-BACKED PARTIAL | Separate healthcare sludge from biology-focused research. |
 | Agentic Workforce Economics | Labour/organisation | SPINE | consulting, transformation models | PARTIAL | Link to 10x10x10 and WorkFamilyAI. |
-| Reality Ledger Evidence Science | Methodology/evidence | SPINE METHODOLOGY | audit, R&D defensibility, trust tooling | PARTIAL | Make claim-verification schema mandatory. |
+| Reality Ledger Evidence Science | Methodology/evidence | SPINE METHODOLOGY | audit, R&D defensibility, trust tooling | ASSET-BACKED PARTIAL | Bind Notion receipts and make claim-verification schema mandatory. |
 | Signal Economy Research | Behavioural economics | SPINE CANDIDATE | survey, products, marketplace | PARTIAL | Define measurement units and value flows. |
 | Cross-LLM Orchestration Reliability | Infrastructure/method | SPINE CANDIDATE | devops/AI ops tooling | PARTIAL | Capture failure modes and telemetry. |
 | Small Business AI Diffusion | Field research | SPINE CANDIDATE | content, consulting, data products | PARTIAL | Create interview/study protocol. |
 | AI Physicalisation / Tangible AI Artefacts | Behaviour/economics | EMERGING | AI-to-vinyl, gifts, memory products | PARTIAL | Separate emotional value research. |
 | Living Symbols | Symbols/culture/research | EMERGING | proposals, education, cultural products | PARTIAL | Inspect proposal and classify. |
-| The Rhythm Method | Creative intelligence | SIBLING PROGRAM | artist analytics, scoring, IP | PARTIAL | Keep separate from Sweet Spots. |
+| The Rhythm Method | Creative intelligence / cognitive rhythm | SIBLING PROGRAM | artist analytics, scoring, cognitive-protection product | ASSET-BACKED PARTIAL | Keep separate from Sweet Spots; bind audit, domain spine, launch checklist, HTML. |
 | CalmBound / Household Boundary Systems | Family/household | SPINE CANDIDATE | family AI, boundary tools | PARTIAL | Create household-specific research lane. |
 | OSINT and Infrastructure Integrity | Sovereignty/security | SPINE CANDIDATE | advisory, national security, risk | PARTIAL | Bind to prior cyber command evidence where permissible. |
 | Neural Evolution Simulator | Modelling/simulation | SPINE CANDIDATE | simulator, research tooling | PARTIAL | Define model inputs and proof outputs. |
@@ -76,26 +100,35 @@ research_parent:
 | EXT-PSYCHEDELICS-WORKPLACE | Psychedelics/workplace | SPINE CANDIDATE | research dataset/policy | PARTIAL | Locate Supabase/Fifth Quadrant dataset. |
 | 47 Novel Research Directions Pipeline | Meta-backlog | CONTROL | portfolio planning | PARTIAL | Map into spine/adjacent/emerging. |
 
+## New discovery conclusions from extended loop
+
+1. ConsentX / Dynamic Consent should be promoted to SPINE because there is a working neurotech informed consent tool, a Drive consent folder, OwnYourAI x ConsentX exports, and participant consent framework assets.
+2. Digital Child Protection should be promoted to SPINE because there is a completed 7 Dimensions PDF/DOCX, premium version, IP framework, and multiple public article assets.
+3. AI Sludge / Public Systems is asset-backed and should remain separate from generic societal-impact research.
+4. The Rhythm Method is not a stray idea. It has a full audit, launch checklist, domain spine, folder, HTML asset, and product/business links. It should be a sibling product/program, not folded into Sweet Spots.
+5. Reality Ledger Evidence Science has Notion receipt evidence and should be treated as a methodology spine governing all other claims.
+
 ## Immediate closure actions
 
 1. Convert/export the two Office XLSX asset registers into readable rows.
 2. Parse `04_RESEARCH_IP_Registry_v1.0.xlsx` and dedupe against May service catalogue.
-3. Promote this ledger into the parent research hub.
-4. Add a machine-readable CSV version next to this file.
-5. Build a `research-status-live.html` successor or import the existing one as a widget.
-6. Add claim confidence levels to AI Sweet Spots posters before publishing.
-7. Keep The Rhythm Method as sibling program, not Sweet Spots.
-8. Treat ConsentX, Public Systems Sludge, Digital Child Protection, and Reality Ledger Evidence Science as likely spine promotions.
+3. Add a machine-readable CSV version next to this file.
+4. Build a `research-status-live.html` successor or import the existing one as a widget.
+5. Add claim confidence levels to AI Sweet Spots posters before publishing.
+6. Keep The Rhythm Method as sibling program, not Sweet Spots.
+7. Promote ConsentX, Digital Child Protection, and Reality Ledger Evidence Science to spine.
+8. Treat Public Systems Sludge as asset-backed spine candidate pending final evidence packaging.
 
 ## Reality Ledger
 
 ```yaml
 status: PARTIAL
-result: Research estate reconciled into a canonical ledger and committed to the T4H Research Hub.
+result: Research estate reconciled into a canonical ledger and updated with Notion, Consent, AI Sludge, Rhythm Method, and Digital Child Protection evidence.
 evidence:
   - Drive search results identifying source files
+  - Notion receipt search identifying Reality Ledger/MCP governance pages
   - GitHub repo discovery identifying target repos
-  - GitHub commit receipt for this ledger
+  - GitHub commit receipts for this ledger
 remaining_gaps:
   - Office XLSX row-level parsing unavailable through direct Sheets API
   - Research/IP PDFs and DOCX need full content parsing
