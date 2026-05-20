@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Centricity Gate — ATO Investigation Command Centre</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #14181d;
+      --ink: #e6edf3;
+      --muted: #8b949e;
+      --real: #2ea043;
+      --partial: #d29922;
+      --weak: #db6d28;
+      --blocked: #f85149;
+      --rule: #21262d;
+      --accent: #58a6ff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); padding: 24px; }
+    h1 { font-size: 18px; margin: 0 0 4px; letter-spacing: -0.01em; }
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 20px 0 8px; font-weight: 600; }
+    .deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+    .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
+    .score { font-size: 42px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .state { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .state.REAL { background: rgba(46,160,67,0.18); color: var(--real); }
+    .state.PARTIAL { background: rgba(210,153,34,0.18); color: var(--partial); }
+    .state.WEAK { background: rgba(219,109,40,0.18); color: var(--weak); }
+    .state.BLOCKED { background: rgba(248,81,73,0.18); color: var(--blocked); }
+    .bar { height: 6px; background: #21262d; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+    .bar > span { display: block; height: 100%; background: var(--accent); }
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+    .row:last-child { border-bottom: 0; }
+    .row .k { color: var(--muted); }
+    .row .v { font-variant-numeric: tabular-nums; }
+    ul { margin: 0; padding-left: 18px; }
+    ul li { margin: 4px 0; }
+    .gap { color: var(--weak); }
+    .proof { color: var(--real); }
+    code { background: #161b22; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+    .meta { color: var(--muted); font-size: 12px; margin-top: 12px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .countdown { font-size: 22px; font-weight: 600; color: var(--partial); }
+  </style>
+</head>
+<body>
+  <h1>Customer Centricity Gate</h1>
+  <div class="meta" id="binds">Loading <code>customer_gate.json</code>…</div>
+
+  <div class="deck">
+    <div class="card">
+      <h2>Score</h2>
+      <div class="score" id="score">—</div>
+      <div style="margin-top:8px"><span class="state" id="state">—</span></div>
+      <div class="bar"><span id="scoreBar" style="width:0%"></span></div>
+      <div class="meta" id="nextAction"></div>
+    </div>
+
+    <div class="card">
+      <h2>ATO Review Countdown</h2>
+      <div class="countdown" id="countdown">—</div>
+      <div class="meta" id="deadlines"></div>
+    </div>
+
+    <div class="card">
+      <h2>Customer / Pain</h2>
+      <div id="customer" style="font-weight:600;margin-bottom:6px"></div>
+      <div id="pain" class="meta"></div>
+    </div>
+
+    <div class="card">
+      <h2>First Value (30 sec)</h2>
+      <div id="firstValue"></div>
+    </div>
+
+    <div class="card">
+      <h2>Payer / Economic Path</h2>
+      <div id="payer" style="font-weight:600"></div>
+      <div id="economicPath" class="meta" style="margin-top:6px"></div>
+    </div>
+
+    <div class="card">
+      <h2>Dimensions</h2>
+      <div id="dimensions"></div>
+    </div>
+
+    <div class="card">
+      <h2>Proof Chain</h2>
+      <ul id="proof"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Gaps to 1.0</h2>
+      <ul id="gaps"></ul>
+    </div>
+  </div>
+
+  <div class="meta" id="generatedAt" style="margin-top:20px"></div>
+
+  <script>
+    const stateClass = (s) => ({REAL:'REAL',PARTIAL:'PARTIAL',WEAK:'WEAK',BLOCKED:'BLOCKED'})[s] || 'PARTIAL';
+    const daysUntil = (iso) => {
+      const d = new Date(iso + 'T00:00:00Z');
+      const now = new Date();
+      return Math.ceil((d - now) / 86400000);
+    };
+
+    fetch('./customer_gate.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(g => {
+        const a = g.current_assessment;
+        document.getElementById('score').textContent = a.weighted_score.toFixed(3);
+        const stEl = document.getElementById('state');
+        stEl.textContent = a.state;
+        stEl.className = 'state ' + stateClass(a.state);
+        document.getElementById('scoreBar').style.width = (a.weighted_score * 100).toFixed(1) + '%';
+        document.getElementById('nextAction').textContent = '→ ' + a.next_action;
+        document.getElementById('customer').textContent = a.customer;
+        document.getElementById('pain').textContent = a.pain;
+        document.getElementById('firstValue').textContent = a.first_value;
+        document.getElementById('payer').textContent = a.payer;
+        document.getElementById('economicPath').textContent = a.economic_path;
+
+        const dims = Object.entries(a.scores).map(([k,v]) => {
+          const w = (g.weights[k] * 100).toFixed(0);
+          const pct = (v * 100).toFixed(0);
+          return `<div class="row"><span class="k">${k.replace(/_/g,' ')}</span><span class="v">${pct}% <span style="color:var(--muted);font-size:11px">·w${w}</span></span></div>`;
+        }).join('');
+        document.getElementById('dimensions').innerHTML = dims;
+
+        document.getElementById('proof').innerHTML = a.proof.map(p => `<li class="proof"><code>${p}</code></li>`).join('');
+        document.getElementById('gaps').innerHTML = a.gaps.map(p => `<li class="gap">${p}</li>`).join('');
+
+        const d = daysUntil(g.deadlines.ato_review);
+        document.getElementById('countdown').textContent = d + ' days to ATO review';
+        document.getElementById('deadlines').innerHTML = 
+          `Review: <code>${g.deadlines.ato_review}</code> · Internal target: <code>${g.deadlines.internal_target}</code> · RDTI: <code>${g.deadlines.rdti_lodgement}</code>`;
+
+        document.getElementById('binds').innerHTML = 
+          `Binds to <code>${g.binds_to.scorecard}</code> · ledger entity <code>${g.binds_to.reality_ledger_entity}</code>`;
+        document.getElementById('generatedAt').textContent = 
+          'Generated: ' + g.generated_at + ' by ' + g.generated_by + ' · v' + g.version;
+      })
+      .catch(e => {
+        document.getElementById('binds').textContent = 'Failed to load gate: ' + e.message;
+      });
+  </script>
+</body>
+</html>
