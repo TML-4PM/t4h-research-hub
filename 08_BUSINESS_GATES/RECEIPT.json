@@ -1,0 +1,21 @@
+{
+  "receipt_id": "gate-seed-2026-05-20",
+  "run_url": "manual-seed",
+  "commit": "4d185a82fbbd4c9da79a065df46d803c258e0a1d",
+  "workflow": "manual-finalise-and-deploy",
+  "actor": "bridge",
+  "gate": "customer_centricity",
+  "score": 0.844,
+  "state": "PARTIAL",
+  "binds_to": {
+    "scorecard": "08_BUSINESS_GATES/CUSTOMER_CENTRICITY_SCORECARD.md",
+    "command_centre": "ATO Investigation 2024/2025",
+    "reality_ledger_entity": "t4h.gate.customer_centricity"
+  },
+  "chain": [
+    "commit:4d185a82fbbd4c9da79a065df46d803c258e0a1d (scorecard md)",
+    "this commit (gate.json + widget + scorer + workflow + seed receipt)",
+    "next: workflow run → recompute → push self-update"
+  ],
+  "generated_at": "2026-05-20T00:46:00Z"
+}
