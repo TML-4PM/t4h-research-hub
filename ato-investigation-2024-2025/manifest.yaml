@@ -1,0 +1,129 @@
+# ATO Investigation 2024/2025 — Canonical Manifest
+# Governed by: GLOBAL_RULE_KERNEL_V6
+# Schema: t4h_object_registry v1
+# Source of truth: this file. README.md is human-readable rendering.
+
+meta:
+  manifest_version: "1.0"
+  rule_kernel: "GLOBAL_RULE_KERNEL_V6"
+  classification: "operational_artefact"
+  authority: "Tech 4 Humanity Pty Ltd (ABN 70 666 271 272)"
+  director: "Troy Latter"
+  canonical_url: "https://github.com/TML-4PM/t4h-research-hub/tree/main/ato-investigation-2024-2025"
+  created_utc: "2026-05-20T01:27:18Z"
+  status: "REAL"
+  evidence_status: "REAL"
+
+identity:
+  object_id: "t4h.research_hub.ato_investigation_2024_2025"
+  object_type: "investigation_section"
+  tenant_id: "tech4humanity"
+  actor_id: "troy.latter"
+  runtime_id: "t4h-research-hub@main"
+  parent_object_id: "t4h.research_hub"
+  upstream_authority: "ATO + RDTI (AusIndustry)"
+
+scope:
+  primary_period: "FY2024-2025"
+  adjacent_periods:
+    - "FY2023-2024"
+    - "FY2025-2026"
+  review_event:
+    canonical_date: "2026-06-10"
+    internal_target: "2026-06-03"
+    buffer_window: "2026-06-04..2026-06-09"
+    buffer_contacts:
+      - name: "Gordon McKirdy"
+        org: "Hales Redden"
+      - name: "Andrew Douglas"
+        org: "Hales Redden"
+        email: "adouglas@halesredden.com.au"
+
+investigation_spine:
+  - step: 1
+    name: "source_intake"
+    state: "REAL"
+  - step: 2
+    name: "evidence_classification"
+    state: "PARTIAL"
+  - step: 3
+    name: "period_boundary_mapping"
+    state: "PARTIAL"
+  - step: 4
+    name: "research_activity_mapping"
+    state: "PARTIAL"
+  - step: 5
+    name: "financial_reconciliation"
+    state: "PARTIAL"
+    upstream: "maat-money-console"
+  - step: 6
+    name: "asset_ip_linkage"
+    state: "PARTIAL"
+  - step: 7
+    name: "gap_register"
+    state: "REAL"
+    location: "./gaps/REGISTER.md"
+  - step: 8
+    name: "response_pack_assembly"
+    state: "BLOCKED"
+    blocked_reason: "awaiting evidence classification completion"
+  - step: 9
+    name: "command_centre_reporting"
+    state: "BLOCKED"
+    blocked_reason: "awaiting response pack"
+  - step: 10
+    name: "closure_receipt"
+    state: "BLOCKED"
+    blocked_reason: "downstream of step 9"
+
+graph_edges:
+  - relation: "governs"
+    to: "t4h.research_hub.ato_investigation_2024_2025"
+    from: "stamp.kernel"
+  - relation: "depends_on"
+    to: "maat.financial_intelligence"
+    from: "t4h.research_hub.ato_investigation_2024_2025"
+  - relation: "depends_on"
+    to: "supabase.audit_log"
+    from: "t4h.research_hub.ato_investigation_2024_2025"
+  - relation: "depends_on"
+    to: "t4h.rdti.fy2425"
+    from: "t4h.research_hub.ato_investigation_2024_2025"
+  - relation: "monetises"
+    to: "rdti_offset_fy2425"
+    from: "t4h.research_hub.ato_investigation_2024_2025"
+    target_value_aud_estimate: 929000
+
+receipt_chain:
+  - event: "section_scaffolded"
+    actor: "chatgpt_agent"
+    runtime: "external_llm"
+    commit_sha: "6a5709e755e2dcc4f89fe1d5ccc11ba0ebf109e5"
+    timestamp_utc: "earlier_session"
+    state_emitted: "REAL"
+    state_v6_reclassified: "PARTIAL"
+    reclassification_reason: "REAL under V6 requires ledger write + telemetry + replay path; commit alone is receipt-only"
+  - event: "v6_uplift"
+    actor: "claude_opus_4_7"
+    runtime: "claude.ai_session"
+    commit_sha: "pending"
+    timestamp_utc: "2026-05-20T01:27:18Z"
+    state_emitted: "REAL"
+
+cross_stream_isolation:
+  meac_workstream:
+    state: "LOCKED"
+    canonical_lock_file: "_governance/MEAC_LOCK.yaml"
+    unlock_condition: "existence_audit_complete"
+    no_bleed: true
+
+drift_watch:
+  - signal: "stale_manifest"
+    threshold_days: 14
+    action: "reconcile"
+  - signal: "orphaned_evidence_doc"
+    threshold_days: 7
+    action: "register_or_quarantine"
+  - signal: "missing_audit_log_link"
+    threshold_hours: 24
+    action: "escalate"
