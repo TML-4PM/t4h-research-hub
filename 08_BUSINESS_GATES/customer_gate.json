@@ -13,15 +13,15 @@
     "first_value": 0.15,
     "proof": 0.15,
     "commercial_path": 0.15,
-    "retention_path": 0.10,
-    "trust_risk": 0.10,
+    "retention_path": 0.1,
+    "trust_risk": 0.1,
     "infrastructure_discipline": 0.05
   },
   "thresholds": {
-    "REAL": 0.90,
-    "PARTIAL": 0.70,
-    "WEAK": 0.40,
-    "BLOCKED": 0.00
+    "REAL": 0.9,
+    "PARTIAL": 0.7,
+    "WEAK": 0.4,
+    "BLOCKED": 0
   },
   "current_assessment": {
     "target": "ATO Investigation 2024/2025 Command Centre",
@@ -45,14 +45,14 @@
     "scores": {
       "pain_clarity": 0.95,
       "customer_language": 0.85,
-      "first_value": 0.80,
-      "proof": 0.90,
+      "first_value": 0.8,
+      "proof": 0.9,
       "commercial_path": 0.75,
-      "retention_path": 0.70,
-      "trust_risk": 0.90,
+      "retention_path": 0.7,
+      "trust_risk": 0.9,
       "infrastructure_discipline": 0.85
     },
-    "weighted_score": 0.844,
+    "weighted_score": 0.84,
     "state": "PARTIAL",
     "next_action": "Bind widget.html to Command Centre; emit first human-telemetry event; record first conversion proof.",
     "elevation": "High",
@@ -65,7 +65,7 @@
   "runtime_enforcement": {
     "required_in_every_promotion_receipt": true,
     "min_state_for_REAL": "REAL",
-    "min_score_for_REAL": 0.90,
+    "min_score_for_REAL": 0.9,
     "fail_action": "block_promotion_to_REAL"
   },
   "deadlines": {
@@ -73,9 +73,10 @@
     "internal_target": "2026-06-03",
     "rdti_lodgement": "2027-04-30"
   },
-  "generated_at": "2026-05-20T00:45:00Z",
-  "generated_by": "customer-gate-workflow",
+  "generated_at": "2026-05-20T01:05:56.120Z",
+  "generated_by": "customer-gate",
   "receipt_chain": [
-    "commit:4d185a82fbbd4c9da79a065df46d803c258e0a1d"
+    "commit:4d185a82fbbd4c9da79a065df46d803c258e0a1d",
+    "commit:310d4092d464d0c7155a1517c58fd1aba95742c8"
   ]
 }
