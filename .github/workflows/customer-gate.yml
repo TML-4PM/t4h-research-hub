@@ -1,0 +1,63 @@
+name: customer-gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '08_BUSINESS_GATES/**'
+      - '.github/workflows/customer-gate.yml'
+  workflow_dispatch:
+  schedule:
+    # Daily 06:00 AEST (~20:00 UTC) — refresh countdown and freshness.
+    - cron: '0 20 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  recompute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Recompute customer_gate.json
+        working-directory: 08_BUSINESS_GATES
+        run: node score.js
+
+      - name: Emit RECEIPT.json
+        working-directory: 08_BUSINESS_GATES
+        run: |
+          node -e "
+            const fs = require('fs');
+            const gate = JSON.parse(fs.readFileSync('customer_gate.json','utf8'));
+            const receipt = {
+              receipt_id: 'gate-' + process.env.GITHUB_RUN_ID,
+              run_url: 'https://github.com/' + process.env.GITHUB_REPOSITORY + '/actions/runs/' + process.env.GITHUB_RUN_ID,
+              commit: process.env.GITHUB_SHA,
+              workflow: process.env.GITHUB_WORKFLOW,
+              actor: process.env.GITHUB_ACTOR,
+              gate: gate.gate,
+              score: gate.current_assessment.weighted_score,
+              state: gate.current_assessment.state,
+              binds_to: gate.binds_to,
+              generated_at: new Date().toISOString()
+            };
+            fs.writeFileSync('RECEIPT.json', JSON.stringify(receipt, null, 2) + '\n');
+            console.log('Receipt emitted: ' + receipt.receipt_id + ' score=' + receipt.score + ' state=' + receipt.state);
+          "
+
+      - name: Commit recomputed gate + receipt
+        run: |
+          git config user.name  "customer-gate-bot"
+          git config user.email "bot@tech4humanity.local"
+          git add 08_BUSINESS_GATES/customer_gate.json 08_BUSINESS_GATES/RECEIPT.json
+          if git diff --cached --quiet; then
+            echo "No gate changes."
+          else
+            git commit -m "chore(gate): recompute customer_gate + receipt [skip ci]"
+            git push
+          fi
