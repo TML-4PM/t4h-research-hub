@@ -1,0 +1,77 @@
+# Global Build Gate — t4h-research-hub
+# Authority: GLOBAL_RULE_KERNEL_V6
+# Applies to: every directory under repo root
+
+gate_id: "t4h_research_hub_global_build_gate_v1"
+governed_by: "GLOBAL_RULE_KERNEL_V6"
+
+contract: |
+  Before any new build artefact (table, schema, dashboard, registry, page, workflow,
+  bridge payload, study, feature, run) is created in this repository, the originating
+  agent must execute:
+
+    DISCOVER → PROVE → DECIDE → BUILD
+
+  Build cannot execute before proof.
+
+stages:
+  DISCOVER:
+    required_outputs:
+      - "candidate object list"
+      - "source scan summary"
+      - "confidence per candidate"
+
+  PROVE:
+    required_outputs:
+      - "typed evidence per candidate (api_response | commit_id | url | receipt | runtime_hash | telemetry_snapshot)"
+      - "classification (FOUND_REAL | FOUND_PARTIAL | FOUND_STALE | NOT_FOUND | UNKNOWN)"
+
+  DECIDE:
+    required_outputs:
+      - "decision (EXTEND | MERGE | CREATE | REFRESH | STOP_AND_RESEARCH)"
+      - "rationale linked to evidence"
+      - "ledger write (audit.log or stamp.lifecycle_log)"
+
+  BUILD:
+    preconditions:
+      - "all three prior stages complete"
+      - "section CHANGELOG.md appended"
+      - "section manifest.yaml updated"
+      - "object registered in registry/objects.yaml"
+      - "receipt path planned (commit_sha)"
+
+reclassification_rules:
+  - if: "build proceeded without DISCOVER"
+    then: "downgrade all outputs to PARTIAL"
+  - if: "build proceeded without typed evidence"
+    then: "downgrade to PARTIAL"
+  - if: "build emitted REAL without ledger write"
+    then: "downgrade to PARTIAL until ledger entry confirmed"
+
+precedent_correction:
+  prior_event:
+    commit_sha: "6a5709e755e2dcc4f89fe1d5ccc11ba0ebf109e5"
+    actor: "chatgpt_agent"
+    state_emitted: "REAL"
+    v6_audit_finding: "PARTIAL"
+    correction_action: "uplift package layered on top to satisfy V6 REAL definition"
+    correction_commit: "see ato-investigation-2024-2025/CHANGELOG.md"
+
+forbidden_phrases_in_outputs:
+  - "cannot immediately locate"
+  - "I will assume"
+  - "let's just create"
+  reason: "All three phrases bypass DISCOVER stage."
+
+audit_targets:
+  - "audit.log"
+  - "stamp.lifecycle_log"
+  - "t4h_canonical_changes"
+  - "ops.subsystem_heartbeats"
+
+economic_governance:
+  rule: "Build work that fails the gate but persists generates orphan_compute. Per V6 economic_self_regulation, orphan_compute_must_terminate within orphan_timeout_hours=24."
+
+human_control:
+  override_path: "troy.latter direct instruction supersedes gate per V6 human_control.rules"
+  emergency_stop: "global — applies to entire repo"
