@@ -47,6 +47,21 @@ This ledger reconciles the known T4H research estate across Drive, GitHub, Notio
 | D023 | `7_Dimensions_Digital_Child_Protection_Premium.pdf` | Premium PDF | 2026-04-23 | FOUND | Premium formatted asset exists. |
 | D024 | `The Invisible Watchers - How Platforms Track Children Without Accounts.pdf` | Article PDF | 2026-05-13 | FOUND | Digital child protection sub-article exists. |
 | D025 | `beyond-ban-australias-social-media-minimum-age-7-digital...html` | HTML article | 2026-03 | FOUND | Public/web-ready article asset exists. |
+| D026 | `DRUG_RESILIENCE_ATLAS_DEFINITION.md` | Markdown definition | 2026-04-22 | USED | Canonical DRA definition exists. |
+| D027 | `DRA_Audit_Report_2026-04-22.md` | Markdown audit | 2026-04/28 | USED | DRA audit reports exist in multiple copies. |
+| D028 | `Drug Resilience Atlas Public Activation Blueprint.pdf` | PDF blueprint | 2026-05-07 | USED | Public activation blueprint exists. |
+| D029 | `GAIN: Drug × AI × Human Decision System` | Doc/PDF | 2026-05 | USED | DRA-adjacent GAIN system docs exist. |
+| D030 | `IA SS + DRUGS` | PDF series | 2026-04/05 | FOUND | AI Sweet Spots + Drugs cross-stream material exists. |
+| D031 | `gcbat.org` and subdomain folders | Drive folders | 2026-03/05 | USED | GC-BAT domain/subdomain folder tree exists. |
+| D032 | `gc-bat-vignettes` | Drive folder | 2026-04 | USED | Vignette library folder exists. |
+| D033 | `gcbat-org_deploy.log` | Deploy log | 2025-11 | USED | Vercel deploy attempted; build failed due missing Skeleton component. |
+| D034 | `GC-BAT_Product_Registry.docx` | DOCX registry | 2026-02 | USED | Product registry includes course catalogue, enterprise offers, revenue projections. |
+| D035 | `GC-BAT_McKinsey_Executive.docx` | DOCX executive summary | 2026-02 | USED | Executive pack includes $1.298M Y1 projected revenue and R&D spend. |
+| D036 | `Calm bound` / `calmbound` / `calmbound-system` / `calmbound-final` | Drive folders | 2025-12/2026-01 | USED | CalmBound has multiple system/final folders. |
+| D037 | `kids vist mode raw grok` | PDF | 2026-05 | FOUND | CalmBound/Kids Visit Mode raw material exists. |
+| D038 | Outcome Ready `HANDOVER.md` | Markdown handover | 2026-04/05 | USED | CalmBound linked as wellbeing/intervention layer inside Outcome Ready. |
+| D039 | `Neural Frontier: The Race to Own Your Thoughts` | HTML article | 2025/2026 copies | FOUND | Neural governance/brain-data article exists. Adjacent to NES but not direct simulator proof. |
+| D040 | `brain-data-can-traded-your-thoughts...` | HTML article | 2025/2026 copies | FOUND | Brain-data governance article exists. Adjacent to NES but not direct simulator proof. |
 
 ### GitHub repositories found
 
@@ -80,8 +95,8 @@ research_parent:
 | Neuroinclusion and Cognitive Accommodation | Inclusion/workforce | SPINE | workplace programs, education, tools | PARTIAL | Separate evidence-based claims from hypotheses. |
 | ConsentX / Dynamic Consent | Governance/platform | SPINE | consent SaaS, audit, policy | ASSET-BACKED PARTIAL | Bind consent HTML tool, folder, OwnYourAI exports, participant framework. |
 | MyNeuralSignal / Signal Measurement | Signal/biomarker | SPINE | signal products, research data | PARTIAL | Bind to Sweet Spot Drift and ConsentX. |
-| GC-BAT / Neuro-governance Futures | Foresight/governance | SPINE | council, policy, advisory | PARTIAL | Bind vignettes to impact/evidence matrix. |
-| Drug Resilience Atlas | Behaviour/law/biology | SPINE | atlas, public research, policy | PARTIAL | Connect existing DRA dataset/assets. |
+| GC-BAT / Neuro-governance Futures | Foresight/governance | SPINE | council, policy, advisory, courses, certification | ASSET-BACKED PARTIAL | Fix old Vercel build gap; bind product registry, vignette library, and revenue model. |
+| Drug Resilience Atlas | Behaviour/law/biology | SPINE | atlas, public research, policy, alerts, scenario analysis | ASSET-BACKED PARTIAL | Bind definition, audit, activation blueprint, GAIN docs, IA SS + Drugs series. |
 | Digital Child Protection | Child safety/IP | SPINE | education, safety tools, advisory | ASSET-BACKED PARTIAL | Bind completed PDF/DOCX, premium PDF, IP framework, article surfaces. |
 | AI Sludge / Public Systems | Public sector AI | SPINE CANDIDATE | advisory, audit, public reports | ASSET-BACKED PARTIAL | Pull Great Sludge Purge and healthcare sludge assets into hub. |
 | AI in Australian Healthcare Systems | Health systems/access | SPINE CANDIDATE | reports, advisory, HealthFlow | ASSET-BACKED PARTIAL | Separate healthcare sludge from biology-focused research. |
@@ -93,20 +108,24 @@ research_parent:
 | AI Physicalisation / Tangible AI Artefacts | Behaviour/economics | EMERGING | AI-to-vinyl, gifts, memory products | PARTIAL | Separate emotional value research. |
 | Living Symbols | Symbols/culture/research | EMERGING | proposals, education, cultural products | PARTIAL | Inspect proposal and classify. |
 | The Rhythm Method | Creative intelligence / cognitive rhythm | SIBLING PROGRAM | artist analytics, scoring, cognitive-protection product | ASSET-BACKED PARTIAL | Keep separate from Sweet Spots; bind audit, domain spine, launch checklist, HTML. |
-| CalmBound / Household Boundary Systems | Family/household | SPINE CANDIDATE | family AI, boundary tools | PARTIAL | Create household-specific research lane. |
+| CalmBound / Household Boundary Systems | Family/household/wellbeing | SPINE CANDIDATE | family AI, boundary tools, Outcome Ready wellbeing layer | ASSET-BACKED PARTIAL | Canonicalise folders; bind Kids Visit Mode and Outcome Ready handover. |
 | OSINT and Infrastructure Integrity | Sovereignty/security | SPINE CANDIDATE | advisory, national security, risk | PARTIAL | Bind to prior cyber command evidence where permissible. |
-| Neural Evolution Simulator | Modelling/simulation | SPINE CANDIDATE | simulator, research tooling | PARTIAL | Define model inputs and proof outputs. |
+| Neural Evolution Simulator | Modelling/simulation | CANDIDATE / UNPROVEN | simulator, research tooling | WEAK / ADJACENT ONLY | Direct simulator artifact not found; adjacent neural frontier and brain-data assets found. |
 | Cognitive Portfolio Theory | Cognitive economics | EMERGING | assessment, advisory, IP | PARTIAL | Decide if standalone theory or Sweet Spots extension. |
 | EXT-PSYCHEDELICS-WORKPLACE | Psychedelics/workplace | SPINE CANDIDATE | research dataset/policy | PARTIAL | Locate Supabase/Fifth Quadrant dataset. |
 | 47 Novel Research Directions Pipeline | Meta-backlog | CONTROL | portfolio planning | PARTIAL | Map into spine/adjacent/emerging. |
 
-## New discovery conclusions from extended loop
+## New discovery conclusions from extended loops
 
 1. ConsentX / Dynamic Consent should be promoted to SPINE because there is a working neurotech informed consent tool, a Drive consent folder, OwnYourAI x ConsentX exports, and participant consent framework assets.
 2. Digital Child Protection should be promoted to SPINE because there is a completed 7 Dimensions PDF/DOCX, premium version, IP framework, and multiple public article assets.
 3. AI Sludge / Public Systems is asset-backed and should remain separate from generic societal-impact research.
 4. The Rhythm Method is not a stray idea. It has a full audit, launch checklist, domain spine, folder, HTML asset, and product/business links. It should be a sibling product/program, not folded into Sweet Spots.
 5. Reality Ledger Evidence Science has Notion receipt evidence and should be treated as a methodology spine governing all other claims.
+6. Drug Resilience Atlas is asset-backed and should remain SPINE: definition, audit reports, public activation blueprint, GAIN docs, and AI Sweet Spots + Drugs material exist.
+7. GC-BAT is asset-backed and revenue-modelled: product registry, executive pack, domain/subdomain folders, vignette folders, and deploy log exist. One known build blocker is missing `src/components/ui/Skeleton` in the old Vercel deploy.
+8. CalmBound is asset-backed enough to remain a spine candidate for family/household wellbeing and Outcome Ready integration.
+9. Neural Evolution Simulator exact artifact was not found in this pass. Adjacent neural-governance content exists, but NES remains UNPROVEN until a direct model/spec/tool is located.
 
 ## Immediate closure actions
 
@@ -116,16 +135,17 @@ research_parent:
 4. Build a `research-status-live.html` successor or import the existing one as a widget.
 5. Add claim confidence levels to AI Sweet Spots posters before publishing.
 6. Keep The Rhythm Method as sibling program, not Sweet Spots.
-7. Promote ConsentX, Digital Child Protection, and Reality Ledger Evidence Science to spine.
-8. Treat Public Systems Sludge as asset-backed spine candidate pending final evidence packaging.
+7. Promote ConsentX, Digital Child Protection, DRA, GC-BAT, and Reality Ledger Evidence Science to spine.
+8. Treat Public Systems Sludge and CalmBound as asset-backed spine candidates pending final evidence packaging.
+9. Keep NES as candidate/unproven until a direct simulator artifact is found.
 
 ## Reality Ledger
 
 ```yaml
 status: PARTIAL
-result: Research estate reconciled into a canonical ledger and updated with Notion, Consent, AI Sludge, Rhythm Method, and Digital Child Protection evidence.
+result: Research estate reconciled into a canonical ledger and updated with DRA, GC-BAT, CalmBound, and NES search findings.
 evidence:
-  - Drive search results identifying source files
+  - Drive search results identifying source files and folders
   - Notion receipt search identifying Reality Ledger/MCP governance pages
   - GitHub repo discovery identifying target repos
   - GitHub commit receipts for this ledger
@@ -134,6 +154,8 @@ remaining_gaps:
   - Research/IP PDFs and DOCX need full content parsing
   - Vercel deployment not executed in this pass
   - Command Centre widget not yet wired
+  - 47-direction pipeline not extracted
+  - NES direct artifact not found
 next_action:
   - create CSV companion
   - create dashboard HTML
