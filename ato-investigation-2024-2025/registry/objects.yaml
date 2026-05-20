@@ -1,0 +1,74 @@
+# Object Registry — ATO Investigation 2024/2025 namespace
+# Schema: t4h_object_registry v1
+# Rule: orphan nodes forbidden. All entities must be connected.
+
+namespace: "t4h.research_hub.ato_investigation_2024_2025"
+schema_version: "1.0"
+
+objects:
+  - object_id: "t4h.research_hub.ato_investigation_2024_2025"
+    object_type: "investigation_section"
+    name: "ATO Investigation 2024/2025"
+    aliases: ["ATO Inv", "ATO-INV-001", "RDTI Examination FY2425"]
+    source_type: "github"
+    source_location: "TML-4PM/t4h-research-hub/ato-investigation-2024-2025"
+    business_refs: ["t4h.core"]
+    asset_refs: ["asset.rdti_register_fy2425", "asset.research_assets_may_2026"]
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    evidence:
+      - type: "commit_id"
+        value: "6a5709e755e2dcc4f89fe1d5ccc11ba0ebf109e5"
+        relation: "section_scaffolded"
+      - type: "url"
+        value: "https://github.com/TML-4PM/t4h-research-hub/tree/main/ato-investigation-2024-2025"
+        relation: "canonical_location"
+    confidence: 1.00
+
+  - object_id: "t4h.research_hub.ato_investigation_2024_2025.manifest"
+    object_type: "machine_manifest"
+    name: "ATO Investigation Manifest"
+    source_location: "TML-4PM/t4h-research-hub/ato-investigation-2024-2025/manifest.yaml"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
+
+  - object_id: "t4h.research_hub.ato_investigation_2024_2025.gate"
+    object_type: "build_gate"
+    name: "Section Build Gate"
+    source_location: "TML-4PM/t4h-research-hub/ato-investigation-2024-2025/_gate.yaml"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
+
+  - object_id: "t4h.research_hub.ato_investigation_2024_2025.evidence_index"
+    object_type: "evidence_index"
+    name: "Evidence Index"
+    source_location: "TML-4PM/t4h-research-hub/ato-investigation-2024-2025/evidence/INDEX.md"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
+
+  - object_id: "t4h.research_hub.ato_investigation_2024_2025.gap_register"
+    object_type: "gap_register"
+    name: "Gap Register"
+    source_location: "TML-4PM/t4h-research-hub/ato-investigation-2024-2025/gaps/REGISTER.md"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
+
+  - object_id: "_governance.meac_lock"
+    object_type: "workstream_lock"
+    name: "MEAC / Study Retrieval Lock"
+    source_location: "TML-4PM/t4h-research-hub/_governance/MEAC_LOCK.yaml"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
+
+  - object_id: "_governance.build_gate"
+    object_type: "global_gate"
+    name: "Global Build Gate"
+    source_location: "TML-4PM/t4h-research-hub/_governance/BUILD_GATE.yaml"
+    status: "FOUND_REAL"
+    evidence_status: "REAL"
+    confidence: 1.00
