@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Format Menu — Tech 4 Humanity Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"] {
+  --color-bg: #0a0a0c;
+  --color-bg-2: #0e0e12;
+  --color-surface: #131318;
+  --color-surface-2: #1a1a22;
+  --color-surface-3: #22222d;
+  --color-border: rgba(255,255,255,0.08);
+  --color-border-strong: rgba(255,255,255,0.16);
+  --color-text: #f4f1ec;
+  --color-text-muted: #9b958e;
+  --color-text-faint: #4d4a45;
+
+  --color-red: #e8292c;
+  --color-red-glow: rgba(232,41,44,0.20);
+  --color-purple: #a78bfa;
+  --color-purple-glow: rgba(167,139,250,0.20);
+  --color-teal: #2dd4bf;
+  --color-teal-glow: rgba(45,212,191,0.20);
+  --color-amber: #f59e0b;
+  --color-amber-glow: rgba(245,158,11,0.20);
+  --color-gold: #d4a843;
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+  --text-hero: clamp(2.5rem, 1rem + 5vw, 6rem);
+
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
+
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 14px; --radius-xl: 20px; --radius-2xl: 28px;
+  --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] {
+  --color-bg: #f6f4ef;
+  --color-bg-2: #efece6;
+  --color-surface: #ffffff;
+  --color-surface-2: #faf8f3;
+  --color-surface-3: #efece5;
+  --color-border: rgba(0,0,0,0.08);
+  --color-border-strong: rgba(0,0,0,0.16);
+  --color-text: #18161a;
+  --color-text-muted: #6e6a64;
+  --color-text-faint: #b9b6b1;
+
+  --color-red: #c41d20;
+  --color-red-glow: rgba(196,29,32,0.12);
+  --color-purple: #7c3aed;
+  --color-purple-glow: rgba(124,58,237,0.12);
+  --color-teal: #0d9488;
+  --color-teal-glow: rgba(13,148,136,0.12);
+  --color-amber: #b45309;
+  --color-amber-glow: rgba(180,83,9,0.12);
+  --color-gold: #b8891a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+@supports (animation-timeline: scroll()) {
+  .fade-in {
+    opacity: 0;
+    animation: revealFade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+  @keyframes revealFade { to { opacity: 1; } }
+  .slide-up {
+    opacity: 0;
+    clip-path: inset(20px 0 0 0);
+    animation: revealSlide linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 75%;
+  }
+  @keyframes revealSlide { to { opacity: 1; clip-path: inset(0 0 0 0); } }
+}
+
+/* ───── HEADER + NAV ───── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: oklch(from var(--color-bg) l c h / 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.header-logo { display: flex; align-items: center; gap: var(--space-3); }
+.logo-mark svg { color: var(--color-red); }
+.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+.logo-title { font-family: var(--font-display); font-size: var(--text-sm); letter-spacing: 0.04em; }
+.logo-sub { font-size: var(--text-xs); color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.primary-nav {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+.nav-link {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: color var(--transition), background var(--transition);
+}
+.nav-link:hover { color: var(--color-text); background: var(--color-surface-2); }
+.nav-link.active { color: var(--color-red); background: var(--color-red-glow); }
+
+.header-right { display: flex; align-items: center; gap: var(--space-3); }
+
+.badge-live {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-red-glow); color: var(--color-red);
+  font-size: var(--text-xs); font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: var(--space-1) var(--space-3); border-radius: 999px;
+  border: 1px solid currentColor;
+}
+.badge-live::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-red); animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity:1; transform: scale(1); } 50% { opacity:0.4; transform: scale(0.7); } }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: color var(--transition), background var(--transition);
+}
+.theme-toggle:hover { color: var(--color-text); background: var(--color-surface-2); }
+
+/* ───── MOBILE NAV ───── */
+@media (max-width: 880px) {
+  .primary-nav { display: none; }
+  .mobile-menu-toggle { display: flex; }
+}
+@media (min-width: 881px) {
+  .mobile-menu-toggle { display: none; }
+}
+.mobile-menu-toggle {
+  width: 36px; height: 36px;
+  display: none; align-items: center; justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+.mobile-nav {
+  display: none; flex-direction: column; gap: var(--space-1);
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav .nav-link { font-size: var(--text-sm); }
+
+/* ───── HERO ───── */
+.hero {
+  padding: clamp(var(--space-16), 8vw, 120px) var(--space-6) var(--space-12);
+  max-width: 1200px; margin: 0 auto; position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 600px; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, var(--color-red-glow) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, var(--color-purple-glow) 0%, transparent 60%);
+  filter: blur(20px);
+}
+.hero > * { position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-size: var(--text-xs); font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-red); margin-bottom: var(--space-5);
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 28px; height: 1px; background: var(--color-red);
+}
+.hero-heading {
+  font-family: var(--font-display); font-size: var(--text-hero);
+  line-height: 0.98; letter-spacing: -0.02em;
+  color: var(--color-text); margin-bottom: var(--space-6);
+}
+.hero-heading em { font-style: italic; color: var(--color-red); }
+.hero-heading .gold { color: var(--color-gold); font-style: italic; }
+.hero-heading .purple { color: var(--color-purple); font-style: italic; }
+.hero-heading .teal { color: var(--color-teal); font-style: italic; }
+.hero-sub {
+  font-size: var(--text-lg); color: var(--color-text-muted);
+  max-width: 60ch; line-height: 1.55; margin-bottom: var(--space-8);
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--space-6); font-size: var(--text-sm); color: var(--color-text-muted);
+}
+.hero-meta-item { display: flex; align-items: center; gap: var(--space-2); }
+.hero-meta-item strong { color: var(--color-text); font-weight: 600; }
+.hero-divider { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-faint); }
+
+/* ───── STATS ───── */
+.stats-bar {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+}
+.stats-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-value { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-text); line-height: 1; }
+.stat-label { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ───── SECTION NAV / FILTERS ───── */
+.section-nav {
+  padding: var(--space-6); max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--space-4);
+}
+.section-label {
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--color-text-muted);
+}
+.filter-group { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.filter-btn {
+  padding: var(--space-1) var(--space-4);
+  border-radius: 999px;
+  font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em;
+  border: 1px solid var(--color-border); color: var(--color-text-muted);
+  background: transparent; transition: all var(--transition);
+}
+.filter-btn:hover { border-color: var(--color-red); color: var(--color-red); }
+.filter-btn.active { background: var(--color-red); border-color: var(--color-red); color: #fff; }
+
+/* ───── FOOTER ───── */
+.site-footer {
+  padding: var(--space-8) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-2);
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: var(--space-6);
+  justify-content: space-between; align-items: flex-start;
+}
+.footer-brand { display: flex; flex-direction: column; gap: var(--space-2); max-width: 360px; }
+.footer-brand-title { font-family: var(--font-display); font-size: var(--text-base); }
+.footer-brand-note { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; }
+.footer-links { display: flex; flex-wrap: wrap; gap: var(--space-8); font-size: var(--text-xs); }
+.footer-col { display: flex; flex-direction: column; gap: var(--space-2); }
+.footer-col-label {
+  color: var(--color-text-muted); text-transform: uppercase;
+  letter-spacing: 0.1em; font-weight: 700; margin-bottom: var(--space-1);
+}
+.footer-col a { color: var(--color-text); transition: color var(--transition); }
+.footer-col a:hover { color: var(--color-red); }
+.footer-bottom {
+  max-width: 1200px; margin: var(--space-6) auto 0;
+  padding-top: var(--space-4); border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs); color: var(--color-text-faint);
+  display: flex; gap: var(--space-3); flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+
+.intro-band {
+  max-width: 1100px; margin: 0 auto;
+  padding: var(--space-12) var(--space-6) var(--space-8);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+.intro-band strong { color: var(--color-text); font-weight: 600; }
+.intro-band em { color: var(--color-purple); font-style: italic; }
+
+.format-grid {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 var(--space-6) var(--space-16);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+@media (max-width: 880px) { .format-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .format-grid { grid-template-columns: 1fr; } }
+
+.format-card {
+  --fc: var(--color-red);
+  --fcg: var(--color-red-glow);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  gap: var(--space-4);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.format-card[data-color="purple"] { --fc: var(--color-purple); --fcg: var(--color-purple-glow); }
+.format-card[data-color="teal"]   { --fc: var(--color-teal);   --fcg: var(--color-teal-glow); }
+.format-card[data-color="amber"]  { --fc: var(--color-amber);  --fcg: var(--color-amber-glow); }
+.format-card[data-color="red"]    { --fc: var(--color-red);    --fcg: var(--color-red-glow); }
+.format-card:hover {
+  border-color: var(--fc);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+.format-card::before {
+  content: ''; position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, var(--fcg) 0%, transparent 70%);
+  opacity: 0.6; pointer-events: none;
+}
+.format-card.highlight::after {
+  content: 'Producer recommended';
+  position: absolute;
+  top: var(--space-4); right: var(--space-4);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  color: #0a0a0c;
+  z-index: 2;
+}
+.format-card > * { position: relative; z-index: 1; }
+
+.format-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+.format-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--fcg);
+  color: var(--fc);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid currentColor;
+}
+.format-icon svg {
+  width: 24px; height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.format-id {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--fc);
+  letter-spacing: 0.08em;
+}
+.format-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  line-height: 1.1;
+}
+.format-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.format-row {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding: var(--space-3);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+}
+.format-row strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+.format-row-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.format-structure-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fc);
+}
+.format-structure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.format-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  align-items: baseline;
+}
+.format-step-time {
+  font-family: var(--font-display);
+  color: var(--fc);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+.format-step-text {
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.format-deliverables {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.format-deliverables-label {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+/* Stack — visual aid */
+.stack-strip {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-16) var(--space-6);
+  position: relative; overflow: hidden;
+}
+.stack-strip::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 10% 50%, var(--color-purple-glow) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 50%, var(--color-teal-glow) 0%, transparent 50%);
+  opacity: 0.5; pointer-events: none;
+}
+.stack-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (max-width: 880px) { .stack-inner { grid-template-columns: 1fr; } }
+.stack-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+}
+.stack-title em { color: var(--color-gold); font-style: italic; }
+.stack-note {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.stack-visual {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background: var(--color-bg-2);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+.stack-layer {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border: 1px solid var(--color-border);
+}
+.stack-layer-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 70px;
+  flex-shrink: 0;
+}
+.stack-layer-text { color: var(--color-text-muted); }
+.stack-layer.l1 { background: var(--color-red-glow); border-color: var(--color-red); }
+.stack-layer.l1 .stack-layer-label { color: var(--color-red); }
+.stack-layer.l2 { background: var(--color-purple-glow); border-color: var(--color-purple); }
+.stack-layer.l2 .stack-layer-label { color: var(--color-purple); }
+.stack-layer.l3 { background: var(--color-teal-glow); border-color: var(--color-teal); }
+.stack-layer.l3 .stack-layer-label { color: var(--color-teal); }
+.stack-layer.l4 { background: var(--color-amber-glow); border-color: var(--color-amber); }
+.stack-layer.l4 .stack-layer-label { color: var(--color-amber); }
+
+/* CTA */
+.cta-strip {
+  background: linear-gradient(135deg, var(--color-bg-2), var(--color-surface));
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-12) var(--space-6);
+}
+.cta-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-6);
+}
+.cta-text { max-width: 600px; }
+.cta-eyebrow {
+  font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-gold); margin-bottom: var(--space-3);
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text); line-height: 1.2;
+}
+.cta-buttons { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: 999px;
+  font-size: var(--text-sm); font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all var(--transition);
+}
+.cta-btn-primary {
+  background: var(--color-gold); color: #0a0a0c;
+  border: 1px solid var(--color-gold);
+}
+.cta-btn-primary:hover { transform: translateX(2px); box-shadow: 0 4px 20px rgba(212,168,67,0.3); }
+.cta-btn-secondary {
+  background: transparent; color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+}
+.cta-btn-secondary:hover { border-color: var(--color-text); }
+
+</style>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="header-logo">
+    <div class="logo-mark">
+      <svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-label="Tech 4 Humanity logo">
+        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.3"/>
+        <path d="M8 16 L16 6 L24 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 6 L16 26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <circle cx="16" cy="26" r="2.5" fill="currentColor" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="logo-title">Tech 4 Humanity</span>
+      <span class="logo-sub">Future Frontiers · Producer Pitch</span>
+    </div>
+  </div>
+  <nav class="primary-nav">
+      <a href="01-future-frontiers.html" class="nav-link">Frontiers</a>
+      <a href="02-other-topics.html" class="nav-link">Other Topics</a>
+      <a href="03-format-menu.html" class="nav-link active">Format Menu</a>
+      <a href="04-about.html" class="nav-link">About</a>
+  </nav>
+  <div class="header-right">
+    <button class="mobile-menu-toggle" data-mobile-toggle aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="badge-live">Producer Brief</div>
+    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav" data-mobile-nav>
+    <a href="01-future-frontiers.html" class="nav-link">Frontiers</a>
+    <a href="02-other-topics.html" class="nav-link">Other Topics</a>
+    <a href="03-format-menu.html" class="nav-link active">Format Menu</a>
+    <a href="04-about.html" class="nav-link">About</a>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-glow" style="background: radial-gradient(ellipse at 30% 50%, var(--color-purple-glow) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, var(--color-teal-glow) 0%, transparent 60%);"></div>
+  <div class="hero-eyebrow">Eight ways we can work together</div>
+  <h1 class="hero-heading">Format<br><span class="purple">Menu</span></h1>
+  <p class="hero-sub">
+    The Future Frontiers content fits inside a lot of different shapes. Single segment, recurring slot, mini-series, panel, deep-dive doc, live event, audio spin-off, or just background research. Pick one — or stack several.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>8</strong> formats</div>
+    <div class="hero-divider"></div>
+    <div class="hero-meta-item"><strong>2</strong> producer-recommended</div>
+    <div class="hero-divider"></div>
+    <div class="hero-meta-item"><strong>Stackable</strong> — most combine</div>
+  </div>
+</section>
+
+<div class="intro-band">
+  <p>
+    Most pitches assume one format. This is a <strong>menu</strong>. The recommended pick depends on slot, audience and how much time the show wants to commit. Two formats are flagged as <em>producer recommended</em> for the strongest combination of impact and sustainability — but every option here is real.
+  </p>
+</div>
+
+<main class="format-grid">
+<article class="format-card" data-color="red">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F1</div>
+      <h2 class="format-name">Single Segment</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">One topic, one conversation</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Introducing a frontier theme to a general audience</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>7–10 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">00:00</span><span class="format-step-text">Eyebrow hook — the unexpected fact</span></div>
+      <div class="format-step"><span class="format-step-time">01:00</span><span class="format-step-text">Why it matters now</span></div>
+      <div class="format-step"><span class="format-step-time">02:30</span><span class="format-step-text">The human story (case / patient / worker)</span></div>
+      <div class="format-step"><span class="format-step-time">05:00</span><span class="format-step-text">The big question</span></div>
+      <div class="format-step"><span class="format-step-time">07:00</span><span class="format-step-text">What's at stake if we get it wrong</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Pre-brief, talking points doc, post-segment recap
+  </div>
+</article>
+<article class="format-card highlight" data-color="purple">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F2</div>
+      <h2 class="format-name">Recurring Expert Slot</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">Same chair, every week or fortnight</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Building a trusted voice the audience returns to</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>5–8 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Weekly</span><span class="format-step-text">One frontier story currently moving</span></div>
+      <div class="format-step"><span class="format-step-time">Monthly</span><span class="format-step-text">Bigger thematic piece</span></div>
+      <div class="format-step"><span class="format-step-time">Ad-hoc</span><span class="format-step-text">Reactive — when a breakthrough or scandal lands</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Weekly briefing doc, shared editorial calendar
+  </div>
+</article>
+<article class="format-card highlight" data-color="teal">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F3</div>
+      <h2 class="format-name">Mini-Series (5–8 episodes)</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">One spine, told properly</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>A coherent arc viewers can binge or follow weekly</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>10–15 min per episode</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Ep 1</span><span class="format-step-text">The premise — why this, why now</span></div>
+      <div class="format-step"><span class="format-step-time">Ep 2–6</span><span class="format-step-text">One frontier per episode, building</span></div>
+      <div class="format-step"><span class="format-step-time">Ep 7</span><span class="format-step-text">The convergence — what happens when they combine</span></div>
+      <div class="format-step"><span class="format-step-time">Ep 8</span><span class="format-step-text">The decision — what we choose next</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Full series treatment, episode briefs, supplementary research pack
+  </div>
+</article>
+<article class="format-card" data-color="amber">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F4</div>
+      <h2 class="format-name">Panel Discussion</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">Multiple voices, real disagreement</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Topics where the right answer is genuinely contested</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>15–25 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Open</span><span class="format-step-text">Frame the question, introduce panel</span></div>
+      <div class="format-step"><span class="format-step-time">Block 1</span><span class="format-step-text">Each panelist's strongest case</span></div>
+      <div class="format-step"><span class="format-step-time">Block 2</span><span class="format-step-text">Cross-examination / disagreement</span></div>
+      <div class="format-step"><span class="format-step-time">Close</span><span class="format-step-text">Where consensus exists, where it doesn't</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Panelist suggestions across academia / industry / government, briefing material per voice
+  </div>
+</article>
+<article class="format-card" data-color="red">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F5</div>
+      <h2 class="format-name">Deep-Dive Documentary</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">One story, fully unpacked</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>A standout single piece on a high-stakes frontier</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>30–60 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Act 1</span><span class="format-step-text">Origin — who saw it first, what they saw</span></div>
+      <div class="format-step"><span class="format-step-time">Act 2</span><span class="format-step-text">The hard middle — failures, false starts, ethical pressure</span></div>
+      <div class="format-step"><span class="format-step-time">Act 3</span><span class="format-step-text">The moment — what changed, what's next</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Research pack, interview shortlist, on-camera availability, archival sourcing
+  </div>
+</article>
+<article class="format-card" data-color="amber">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F6</div>
+      <h2 class="format-name">Live Q&amp;A or Debate</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">Audience in the room</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Events, conferences, partner activations, town halls</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>45–60 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Open</span><span class="format-step-text">Provocation — one strong claim, defended</span></div>
+      <div class="format-step"><span class="format-step-time">Middle</span><span class="format-step-text">Audience challenge / counter-arguments</span></div>
+      <div class="format-step"><span class="format-step-time">Close</span><span class="format-step-text">What changed in the room</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Pre-event run-of-show, audience question seeding, post-event clips
+  </div>
+</article>
+<article class="format-card" data-color="purple">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F7</div>
+      <h2 class="format-name">Audio / Podcast Spin-Off</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">Longer-form, off-screen</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Extending the reach beyond broadcast</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>30–60 min</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Companion</span><span class="format-step-text">Director's-cut version of the TV segment</span></div>
+      <div class="format-step"><span class="format-step-time">Standalone</span><span class="format-step-text">Longer conversations than time allows on-air</span></div>
+      <div class="format-step"><span class="format-step-time">Mailbag</span><span class="format-step-text">Audience questions answered with depth</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Episode structure, guest curation, ongoing content calendar
+  </div>
+</article>
+<article class="format-card" data-color="teal">
+  <div class="format-head">
+    <div class="format-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+    <div style="flex:1; min-width:0;">
+      <div class="format-id">F8</div>
+      <h2 class="format-name">Editorial / Background Research</h2>
+    </div>
+  </div>
+  <p class="format-subtitle">Behind-the-scenes contribution</p>
+  <div class="format-row">
+    <div class="format-row-item"><strong>Best for</strong><span>Strengthening other segments — even without on-air presence</span></div>
+    <div class="format-row-item"><strong>Length</strong><span>Project-based</span></div>
+  </div>
+  <div class="format-structure-label">Sample structure</div>
+  <div class="format-structure">
+      <div class="format-step"><span class="format-step-time">Briefs</span><span class="format-step-text">Per-segment research dossiers</span></div>
+      <div class="format-step"><span class="format-step-time">Sources</span><span class="format-step-text">Verified expert contacts and primary references</span></div>
+      <div class="format-step"><span class="format-step-time">Fact-check</span><span class="format-step-text">Pre-broadcast review on technical claims</span></div>
+  </div>
+  <div class="format-deliverables">
+    <span class="format-deliverables-label">Deliverables</span>
+    Whatever a senior producer needs — confidential, fast, well-sourced
+  </div>
+</article>
+</main>
+
+<section class="stack-strip">
+  <div class="stack-inner">
+    <div>
+      <h2 class="stack-title">Most of these <em>stack</em>.</h2>
+      <p class="stack-note">
+        A working combination: a recurring weekly expert slot anchors the audience. A mini-series runs in parallel for higher production episodes. A podcast spin-off gives the long-form audience somewhere to go. And background research keeps every other segment on the show sharper. We can scope to whatever budget and slot exists.
+      </p>
+    </div>
+    <div class="stack-visual">
+      <div class="stack-layer l1">
+        <span class="stack-layer-label">Anchor</span>
+        <span class="stack-layer-text">Recurring weekly slot</span>
+      </div>
+      <div class="stack-layer l2">
+        <span class="stack-layer-label">Arc</span>
+        <span class="stack-layer-text">Mini-series running in parallel</span>
+      </div>
+      <div class="stack-layer l3">
+        <span class="stack-layer-label">Depth</span>
+        <span class="stack-layer-text">Podcast / audio spin-off</span>
+      </div>
+      <div class="stack-layer l4">
+        <span class="stack-layer-label">Spine</span>
+        <span class="stack-layer-text">Background research across the show</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <div class="cta-eyebrow">Last piece</div>
+      <h2 class="cta-title">Who you'd actually be working with — the bio, the company, the receipts.</h2>
+    </div>
+    <div class="cta-buttons">
+      <a href="04-about.html" class="cta-btn cta-btn-primary">
+        About us
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="01-future-frontiers.html" class="cta-btn cta-btn-secondary">
+        ← Back to Frontiers
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-title">Tech 4 Humanity</div>
+      <div class="footer-brand-note">An Australian AI R&amp;D company building human-signal systems, consent infrastructure, and decision tools for the next century of work, health and identity.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <span class="footer-col-label">This Pitch</span>
+        <a href="01-future-frontiers.html">Frontiers</a>
+        <a href="02-other-topics.html">Other Topics</a>
+        <a href="03-format-menu.html">Format Menu</a>
+        <a href="04-about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-label">Contact</span>
+        <a href="mailto:troy@4pm.net.au">troy@4pm.net.au</a>
+        <span style="color: var(--color-text-muted);">Sydney, Australia</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Future Frontiers</span>
+    <span>·</span>
+    <span>July 2026 Producer Brief</span>
+    <span>·</span>
+    <span>© Tech 4 Humanity Pty Ltd</span>
+  </div>
+</footer>
+<script>
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = 'dark';
+  function setTheme(mode) {
+    d = mode;
+    r.setAttribute('data-theme', d);
+    if(t) t.innerHTML = d === 'dark'
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  }
+  setTheme('dark');
+  if(t) t.addEventListener('click', () => setTheme(d === 'dark' ? 'light' : 'dark'));
+
+  const mt = document.querySelector('[data-mobile-toggle]');
+  const mn = document.querySelector('[data-mobile-nav]');
+  if (mt && mn) mt.addEventListener('click', () => mn.classList.toggle('open'));
+})();
+
+
+</script>
+</body>
+</html>
