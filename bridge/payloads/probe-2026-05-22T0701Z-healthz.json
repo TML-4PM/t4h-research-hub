@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "request_id": "probe-2026-05-22T0701Z-healthz",
+    "intent": "end-to-end bridge runner probe — verify GH Actions → bridge → receipt loop",
+    "requested_by": "claude-opus-4-7 session 2026-05-22",
+    "reality_class": "DIAGNOSTIC_PROBE"
+  },
+  "function_name": "healthz",
+  "action": "healthz",
+  "payload": {}
+}
