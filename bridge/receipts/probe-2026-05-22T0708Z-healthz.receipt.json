@@ -1,0 +1,15 @@
+{
+  "request_id": "probe-2026-05-22T0708Z-healthz",
+  "function_name": "healthz",
+  "payload_path": "bridge/payloads/probe-2026-05-22T0708Z-healthz.json",
+  "commit_sha": "f1a819b0334f4371a8f227840f0d8a806fa1acb6",
+  "runner_workflow": "26273548378",
+  "picked_up_at": "2026-05-22T07:04:23Z",
+  "completed_at": "2026-05-22T07:04:23Z",
+  "status": "BLOCKED",
+  "http_code": 0,
+  "response": {
+    "error": "BRIDGE_ENDPOINT or BRIDGE_API_KEY not configured",
+    "fix": "Add secrets at Settings > Secrets > Actions"
+  }
+}
