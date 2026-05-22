@@ -42,6 +42,7 @@ jobs:
             CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'bridge/payloads/*.json' | tr '\n' ' ')
             echo "files=${CHANGED}" >> "$GITHUB_OUTPUT"
           fi
+          echo "Detected files: ${CHANGED:-${INPUT_PATH:-<none>}}"
 
       - name: Execute payloads
         env:
@@ -51,23 +52,23 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           GH_SHA: ${{ github.sha }}
           GH_RUN_ID: ${{ github.run_id }}
+          FILES_TO_RUN: ${{ steps.detect.outputs.files }}
         run: |
           set -uo pipefail
-          FILES="${{ steps.detect.outputs.files }}"
-          if [ -z "${FILES// }" ]; then
+          if [ -z "${FILES_TO_RUN// }" ]; then
             echo "No payload files changed — nothing to execute"
             exit 0
           fi
 
-          for PAYLOAD_PATH in $FILES; do
+          for PAYLOAD_PATH in $FILES_TO_RUN; do
             echo "=== Processing: $PAYLOAD_PATH ==="
             if [ ! -f "$PAYLOAD_PATH" ]; then
               echo "File not found: $PAYLOAD_PATH — skipping"
               continue
             fi
 
-            REQUEST_ID=$(node -e "const j=JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')); console.log(j.metadata?.request_id || j.request_id || 'unknown-'+Date.now())" "$PAYLOAD_PATH")
-            FUNCTION_NAME=$(node -e "const j=JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')); console.log(j.function_name || j.action || 'unknown')" "$PAYLOAD_PATH")
+            REQUEST_ID=$(node -e 'const j=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); console.log(j.metadata?.request_id || j.request_id || "unknown-"+Date.now())' "$PAYLOAD_PATH")
+            FUNCTION_NAME=$(node -e 'const j=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); console.log(j.function_name || j.action || "unknown")' "$PAYLOAD_PATH")
 
             echo "request_id=$REQUEST_ID function=$FUNCTION_NAME"
 
@@ -98,22 +99,26 @@ jobs:
 
             COMPLETED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-            node -e "
-              const fs=require('fs');
+            # Write receipt via env-passed vars (export-safe)
+            export REQUEST_ID FUNCTION_NAME PAYLOAD_PATH PICKED_UP_AT COMPLETED_AT INVOKE_STATUS HTTP_CODE INVOKE_RESPONSE RECEIPT_FILE
+            node -e '
+              const fs=require("fs");
+              const e=process.env;
+              const resp=(()=>{ try { return JSON.parse(e.INVOKE_RESPONSE); } catch { return { raw: e.INVOKE_RESPONSE }; } })();
               const receipt={
-                request_id: process.env.REQUEST_ID,
-                function_name: process.env.FUNCTION_NAME,
-                payload_path: process.env.PAYLOAD_PATH,
-                commit_sha: process.env.GH_SHA,
-                runner_workflow: process.env.GH_RUN_ID,
-                picked_up_at: process.env.PICKED_UP_AT,
-                completed_at: process.env.COMPLETED_AT,
-                status: process.env.INVOKE_STATUS,
-                http_code: Number(process.env.HTTP_CODE),
-                response: (()=>{ try { return JSON.parse(process.env.INVOKE_RESPONSE); } catch { return { raw: process.env.INVOKE_RESPONSE }; } })()
+                request_id: e.REQUEST_ID,
+                function_name: e.FUNCTION_NAME,
+                payload_path: e.PAYLOAD_PATH,
+                commit_sha: e.GH_SHA,
+                runner_workflow: e.GH_RUN_ID,
+                picked_up_at: e.PICKED_UP_AT,
+                completed_at: e.COMPLETED_AT,
+                status: e.INVOKE_STATUS,
+                http_code: Number(e.HTTP_CODE),
+                response: resp
               };
-              fs.writeFileSync(process.env.RECEIPT_FILE, JSON.stringify(receipt, null, 2));
-            "
+              fs.writeFileSync(e.RECEIPT_FILE, JSON.stringify(receipt, null, 2));
+            '
             echo "Receipt: $RECEIPT_FILE | Status: $INVOKE_STATUS | HTTP: $HTTP_CODE"
           done
 
