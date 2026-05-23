@@ -1,0 +1,86 @@
+{
+  "initiative": "signal_pack_pods",
+  "binds_to": "TML-4PM/t4h-research-hub/08_BUSINESS_GATES/signal-pack-pods/",
+  "scored_at": "2026-05-24T00:00:00+10:00",
+  "scored_by": "claude-opus-4-7",
+  "version": "0.1.0",
+  "customer_gate": {
+    "score": 0.42,
+    "state": "WEAK",
+    "customer": "Not yet named. Three target archetypes defined in POD_BRIEFS.md; zero named individuals engaged.",
+    "pain": "Hypothesised: SME operators (1-10 person firms) in AU need pre-priced, compliance-aware, vertical-specific operations packs that don't require enterprise procurement. Not validated.",
+    "first_value": "Hypothesised: $49-$1999 entry-tier pack subscription producing a measurable compliance or operations outcome within 30 days of activation. Not measured.",
+    "payer": "Unknown. Either (a) end SME customer pays partner who pays T4H; or (b) end SME pays T4H direct.",
+    "economic_path": "Three models stress-tested in POD_BRIEFS.md (Model A: subscription / Model B: diagnostic + subscription / Model C: subscription + value-share). Margin floors not yet validated against vertical-specific cost basis.",
+    "proof": [
+      "seos_platform.pack_matrix_bound REAL (72 rows, hash afcb44a7...)",
+      "seos_platform.offers_seeded REAL (45 priced offers $49-$1999)",
+      "seos_platform.modules_seeded REAL (12 modules across 5 layers)",
+      "AI4Tradies landing page deployed (1 of 9 verticals)",
+      "ConsentX consentx.org live"
+    ],
+    "gaps": [
+      "Zero named external partners engaged",
+      "Zero paid pilots scoped",
+      "Zero willingness-to-pay tests delivered",
+      "8 of 9 vertical landing pages not built",
+      "36 of 45 Stripe products not created",
+      "content_signal_os ingestion not live (LinkedIn / LLM library / SaaS APIs)",
+      "Multi-tenant tenant_id not present on all signal tables",
+      "Value-share telemetry contract template not drafted",
+      "No retention proof"
+    ],
+    "next_action": "Partnership Pod: name 3 candidates for Archetype A (accounting practice) by 31 May 2026. Outputs a yes/no/conditional from each."
+  },
+  "dimensions": {
+    "customer_clarity": 0.30,
+    "pain_validated": 0.20,
+    "first_value_demonstrated": 0.10,
+    "payer_identified": 0.20,
+    "economic_path_proven": 0.30,
+    "retention_evidence": 0.00,
+    "scale_path": 0.40,
+    "ethics_and_consent_path": 0.95,
+    "infrastructure_readiness": 0.65,
+    "governance_compliance": 0.90
+  },
+  "weights": {
+    "customer_clarity": 0.10,
+    "pain_validated": 0.15,
+    "first_value_demonstrated": 0.20,
+    "payer_identified": 0.10,
+    "economic_path_proven": 0.15,
+    "retention_evidence": 0.10,
+    "scale_path": 0.05,
+    "ethics_and_consent_path": 0.05,
+    "infrastructure_readiness": 0.05,
+    "governance_compliance": 0.05
+  },
+  "thresholds": {
+    "REAL": 0.90,
+    "PARTIAL": 0.70,
+    "WEAK": 0.40,
+    "BLOCKED": 0.00
+  },
+  "decision_deadlines": {
+    "partnership_pod_day_14": "2026-06-07",
+    "product_pod_day_14": "2026-06-07",
+    "pricing_pod_day_14": "2026-06-07",
+    "combined_outcome_email": "2026-06-21",
+    "kill_or_double_down": "2026-07-19"
+  },
+  "blocking_dependencies": [
+    "ATO review 2026-06-10 (must not be destabilised by pod activity)",
+    "MyNeuralSignal DNS BLOCKED (brand unusable until resolved)"
+  ],
+  "evidence_chain": {
+    "validation_receipt": "VALIDATION_RECEIPT.md",
+    "pod_briefs": "POD_BRIEFS.md",
+    "white_label": "WHITE_LABEL_ASSESSMENT.md",
+    "pack_architecture": "PACK_ARCHITECTURE.md",
+    "competitor_mirror": "COMPETITOR_MIRROR.md",
+    "faq": "FAQ_REVERSE_BUSINESS_CASE.md",
+    "ecosystem_map": "ECOSYSTEM_MAP.md"
+  },
+  "promotion_rule": "Score reaches PARTIAL (0.70) when one named partner returns a written yes/no/conditional. Reaches REAL (0.90) only when one paying customer (direct or via partner) has completed first value AND made a second action (renew / expand / refer)."
+}
