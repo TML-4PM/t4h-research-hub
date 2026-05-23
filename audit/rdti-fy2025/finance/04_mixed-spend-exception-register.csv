@@ -1,0 +1,1 @@
+evidence_id,txn_date,source_account,vendor,amount_cents,business_portion_pct,business_amount_cents,personal_portion_pct,personal_amount_cents,allocation_method,allocation_evidence,review_status,confidence_pct,notes
