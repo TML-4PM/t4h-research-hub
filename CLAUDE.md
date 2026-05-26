@@ -36,6 +36,52 @@ Ask in order:
 
 If all four are yes, the answer is **execute, don't ask**.
 
+## Code-writing discipline
+
+These rules apply when Claude is writing or editing code — Lambdas, SQL functions, React components, scripts, migrations. Adapted from `forrestchang/andrej-karpathy-skills` (146k★), with principle 1 dropped because "if unclear, stop and ask" directly contradicts `autonomous_continuity_over_hitl`. The remaining three are net-add.
+
+### Simplicity
+
+Minimum code that solves the problem. Nothing speculative.
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If 200 lines could be 50, rewrite. If a switch could be a lookup, use the lookup.
+- Senior-engineer test: would this be called overcomplicated in review? If yes, simplify before committing.
+
+### Surgical changes
+
+Touch only what the task requires. Match the repo, not your taste.
+
+- Match existing style in `the-pen`, `park-harmony-ai`, `outcome-ready`, `tech4humanity-books`, `t4h-research-hub`. Repo conventions are canonical for that repo even when you'd do it differently.
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Remove only the orphans YOUR changes created — imports, variables, functions made dead by this specific edit.
+- Pre-existing dead code: mention it in the commit message or ledger evidence. Don't delete it unless explicitly asked.
+- Every changed line must trace directly to the task. If you can't justify a line in one sentence, drop it.
+
+### Verifiable goals
+
+Transform ambiguous tasks into telemetry-verifiable goals before executing. T4H runs on signals, not unit tests — success is a SQL/log/metric flip, not a green CI.
+
+Examples:
+
+- "Fix the callback gap" → "`SELECT COUNT(*) FROM ops.work_queue WHERE response_job_id IS NULL AND submitted_at > now() - interval '1 hour'` drops to 0 after fix lands."
+- "Make the watchdog reliable" → "`subsystem_heartbeats` for `work_queue_dispatch_1min` shows continuous freshness < 5 min for 24h."
+- "Patch the function" → "Before: row count of failure. After: row count of failure = 0. Evidence row in `public.reality_ledger`."
+
+If you cannot state the verifying signal up front, the goal is not sharp enough yet. Don't ask Troy — propose the signal in your first action and proceed. The signal is the contract.
+
+For multi-step work, state a plan with per-step verify:
+
+```
+1. [Step] → verify: [SQL/log signal]
+2. [Step] → verify: [SQL/log signal]
+3. [Step] → verify: [SQL/log signal]
+```
+
 ## Logging contract
 
 Every autonomous fix gets a `public.reality_ledger` row with `status='REAL'` and `evidence` containing a **top-level** key from the trap-A allowlist: `commit_sha | api_response | execution_trace | evidence_hash | cli_output | receipt_id | commit_id | pen_receipt_url | evidence_hashes | runtime_hash | telemetry_snapshot | recovery_log`. Values nested under `evidence_type` arrays will silently demote REAL → PARTIAL via `trg_real_requires_evidence`.
@@ -47,6 +93,7 @@ Every autonomous fix gets a `public.reality_ledger` row with `status='REAL'` and
 - "Let me know if you'd like me to …" (when the action class is AUTONOMOUS)
 - Asking permission for SELECTs of any kind
 - Asking permission for idempotent backfills of clearly-canonical data
+- "If unclear, stop and ask" — per Code-writing discipline, propose the verifying signal in the first action and proceed.
 
 ## Permitted clarification
 
@@ -65,4 +112,4 @@ Clarification IS appropriate when:
 
 ---
 
-_Last updated: 2026-05-24 by Claude (session fix of `fn_wave20_followup_sweep`, ledger id `75e63b87-e619-4070-bce3-bba179382e33`)._
+_Last updated: 2026-05-26 by Claude. Code-writing discipline section added from `forrestchang/andrej-karpathy-skills` (146k★) diff: lifted Simplicity / Surgical changes / Verifiable goals, dropped Think Before Coding (HITL conflict). Previous edit 2026-05-24 (`fn_wave20_followup_sweep` fix, ledger id `75e63b87-e619-4070-bce3-bba179382e33`)._
