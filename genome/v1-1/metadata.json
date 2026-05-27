@@ -1,0 +1,50 @@
+{
+  "version": "v1.1",
+  "built_at_utc": "2026-05-27T01:17:33Z",
+  "actor_id": "troy@tech4humanity",
+  "tenant_id": "T4H",
+  "runtime_id": "claude-opus-4-7",
+  "execution_id": "exec_20260527T011733Z",
+  "execution_nonce": "83ef6364dda72d45",
+  "cluster_id": "CL_RESEARCH",
+  "artifact": {
+    "filename": "05_research-genome-v1-1.xlsx",
+    "sha256": "1251fd0ca62328aa9695fbe1bee54eaba844f43f240f8b6421aa6a8b157800d3",
+    "sheets": 26,
+    "formulas": 191,
+    "formula_errors": 0
+  },
+  "supersedes": {
+    "version": "v1.0",
+    "source": "ChatGPT seeded workbook (04_research-genome-v1-0-seeded.xlsx)",
+    "claimed_sha256": "777af748c3d28058b1d9c55863c8caf1b90333ed194e62d5195adb4997aeb9fe"
+  },
+  "kernel_v6_alignment": {
+    "real": 11,
+    "partial": 7,
+    "blocked": 0,
+    "audit_sheet": "24_KernelAlignment"
+  },
+  "evidence_chain": {
+    "ledger_row_id": "8aaf16f6-b5e6-45f7-bc9b-ffec40977ac3",
+    "ledger_uri": "supabase://lzfgigiyqpuuxslsygjt/public.reality_ledger/8aaf16f6-b5e6-45f7-bc9b-ffec40977ac3",
+    "receipt_commits": [
+      {"path": "receipts/RESEARCH-GENOME/v1-1/outbound/RECEIPT.json", "sha": "b9fc5ff4c641cfe646d5164805ddadd8b9eb426b"},
+      {"path": "receipts/RESEARCH-GENOME/v1-1/outbound/RECEIPT.md", "sha": "19fdbc7e1f8c7fe137e05c988ac8725ce6987b4d"}
+    ],
+    "bridge_evt_id": "375834d1-e24c-4e6f-b279-7a90869061f3",
+    "bridge_evidence_hash": "54440461ec629698b864848bf5938a91b20f3afeb963abb6fb25d091eac49f62"
+  },
+  "changes_from_v1_0": [
+    "+ OriginChain sheet (OC-* objects ChatGPT identified but did not add)",
+    "+ Atlas heatmap (Research Group x Genome Layer matrix)",
+    "+ KernelAlignment audit sheet",
+    "+ Receipts registry sheet",
+    "+ Identity layer columns on every transactional sheet",
+    "+ Monotonic_seq column on Timeline",
+    "+ Live COUNTIF reuse_count formulas on ReuseAtoms",
+    "+ Data validation: evidence_type and ledger_status (PRETEND blocked)",
+    "+ Cross-sheet wired rollup formulas",
+    "+ Real SHA256, real receipts, real ledger row"
+  ]
+}
